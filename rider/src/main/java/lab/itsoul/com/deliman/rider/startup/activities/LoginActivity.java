@@ -2,7 +2,7 @@ package lab.itsoul.com.deliman.rider.startup.activities;
 
 import android.os.Bundle;
 
-import lab.itsoul.com.dailygoods.app.startup.R;
+import lab.itsoul.com.deliman.rider.startup.R;
 
 public class LoginActivity extends BaseActivity {
 

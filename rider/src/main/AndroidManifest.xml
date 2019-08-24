@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="lab.itsoul.com.dailygoods.app.startup">
+    package="lab.itsoul.com.deliman.rider.startup">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name="lab.itsoul.com.deliman.rider.ui.SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -32,21 +35,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-        <activity android:name="lab.itsoul.com.dailygoods.app.startup.lab.itsoul.com.dailygoods.rider.startup.activities.SplashScreenActivity" android:theme="@style/SplashScreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name="lab.itsoul.com.dailygoods.app.startup.lab.itsoul.com.dailygoods.rider.startup.activities.BaseActivity">
-
-        </activity>
-
-        <activity android:name="lab.itsoul.com.dailygoods.app.startup.lab.itsoul.com.dailygoods.rider.startup.activities.LoginActivity">
-
-        </activity>
 
     </application>
 

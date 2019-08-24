@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 
 import javax.validation.constraints.NotNull;
 
-import lab.itsoul.com.deliman.app.startup.BuildConfig;
+import lab.itsoul.com.deliman.rider.startup.BuildConfig;
 import lab.itsoul.com.deliman.rider.startup.activities.BaseActivity;
 
 public class AppVersionController {

@@ -13,7 +13,7 @@ import android.os.Bundle;
 import com.itsoul.lab.android.controllers.NetworkActivityController;
 import com.itsoul.lab.domain.base.Produce;
 
-import lab.itsoul.com.dailygoods.app.startup.R;
+import lab.itsoul.com.deliman.rider.startup.R;
 import lab.itsoul.com.deliman.rider.startup.controllers.AppVersionController;
 
 public class BaseActivity extends AppCompatActivity {

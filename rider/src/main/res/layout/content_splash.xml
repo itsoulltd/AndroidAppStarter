@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="lab.itsoul.com.deliman.rider.startup.lab.itsoul.com.dailygoods.rider.startup.activities.SplashScreenActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="lab.itsoul.com.deliman.rider.ui.SplashActivity"
+    tools:showIn="@layout/activity_splash">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package lab.itsoul.com.dailygoods.app.startup;
+package lab.itsoul.com.deliman.rider.startup;
 
 import org.junit.Test;
 

@@ -6,7 +6,7 @@ import com.itsoul.lab.android.client.GeoTrackerDroidKit;
 import com.itsoul.lab.android.models.AppVersion;
 import com.itsoul.lab.client.GeoTracker;
 
-import lab.itsoul.com.deliman.app.startup.BuildConfig;
+import lab.itsoul.com.deliman.rider.startup.BuildConfig;
 
 public class AppContext extends Application {
 
