@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.ui.home;
+package lab.itsoul.com.deliman.rider.ui.rider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +13,9 @@ import butterknife.OnClick;
 import lab.itsoul.com.deliman.rider.startup.R;
 
 
-public class VerificationActivity extends AppCompatActivity {
+public class RiderActivity extends AppCompatActivity {
 
-    private static final String TAG = VerificationActivity.class.getName();
+    private static final String TAG = RiderActivity.class.getName();
     @BindView(R.id.verificationStatusTextView)
     TextView verificationStatusTextView;
 
@@ -28,7 +28,7 @@ public class VerificationActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_verification);
+        setContentView(R.layout.activity_rider);
         ButterKnife.bind(this);
 
         riderViewModel = new RiderViewModel(getApplication());

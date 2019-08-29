@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.ui.home;
+package lab.itsoul.com.deliman.rider.ui.rider;
 
 import android.app.Application;
 
@@ -12,7 +12,7 @@ import com.itsoul.lab.domain.models.auth.UserInfo;
 import java.util.List;
 
 import lab.itsoul.com.deliman.libshared.data.mock.MockRiderDataSource;
-import lab.itsoul.com.deliman.libshared.data.verification.RiderRepository;
+import lab.itsoul.com.deliman.libshared.data.rider.RiderRepository;
 import lab.itsoul.com.deliman.libshared.model.Rider;
 import lab.itsoul.com.deliman.libshared.model.VerificationResult;
 

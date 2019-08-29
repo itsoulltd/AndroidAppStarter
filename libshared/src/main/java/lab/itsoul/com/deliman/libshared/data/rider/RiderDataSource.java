@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.libshared.data.verification;
+package lab.itsoul.com.deliman.libshared.data.rider;
 
 import com.itsoul.lab.domain.models.auth.UserInfo;
 
