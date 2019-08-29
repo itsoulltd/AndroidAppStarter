@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -26,18 +28,53 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     api 'com.google.guava:guava:28.0-android'
+
+    //Droid client for communicating with micro-services todo
+    implementation('com.it.soul.lab:jsql-editor:1.1.0-SNAPSHOT') {
+        exclude group: 'mysql'
+        exclude group: 'com.datastax.cassandra'
+        exclude group: 'com.google.guava'
+        exclude group: 'com.codahale.metrics'
+        exclude group: 'io.netty'
+    }
+
+    implementation('com.itsoul.lab:micro-service-core:1.0') {
+        exclude group: 'com.codahale.metrics'
+        exclude group: 'io.netty'
+    }
+
+    implementation('com.itsoul.lab:geo-tracker-micro-core:1.0') {
+        exclude group: 'javax.persistence'
+        exclude group: 'org.hibernate'
+        exclude group: 'mysql'
+        exclude group: 'com.datastax.cassandra'
+        exclude group: 'com.google.guava'
+        exclude group: 'com.codahale.metrics'
+        exclude group: 'io.netty'
+    }
+    implementation('com.itsoul.lab:dailygoods-domain:1.0-SNAPSHOT') {
+        exclude group: 'com.itsoul.lab'
+    }
+    implementation project(path: ':GeoTrackerAndroidKit')
+
+    implementation("com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion")
+    testImplementation("com.squareup.okhttp3:mockwebserver:$rootProject.okhttpVersion")
+
+    // Local unit tests
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+    testImplementation "com.nhaarman:mockito-kotlin:$rootProject.mockitoKotlinVersion"
+    testImplementation "org.hamcrest:hamcrest-library:$rootProject.hamcrestVersion"
 }
