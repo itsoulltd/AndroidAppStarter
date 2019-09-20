@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.ui.rider;
+package lab.itsoul.com.deliman.rider.ui.app;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,16 +13,16 @@ import butterknife.OnClick;
 import lab.itsoul.com.deliman.rider.startup.R;
 
 
-public class RiderActivity extends AppCompatActivity {
+public class AppActivity extends AppCompatActivity {
 
-    private static final String TAG = RiderActivity.class.getName();
+    private static final String TAG = AppActivity.class.getName();
     @BindView(R.id.verificationStatusTextView)
     TextView verificationStatusTextView;
 
     @BindView(R.id.verifyButton)
     TextView verifyButton;
 
-    private RiderViewModel riderViewModel;
+    private AppViewModel appViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,13 +31,13 @@ public class RiderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rider);
         ButterKnife.bind(this);
 
-        riderViewModel = new RiderViewModel(getApplication());
-        riderViewModel.getUserStatusLiveData().observe(this, verificationResult -> {
+        appViewModel = new AppViewModel(getApplication());
+        appViewModel.getUserStatusLiveData().observe(this, verificationResult -> {
             Log.d(TAG, "===> result: " + verificationResult.isVerified());
             verificationStatusTextView.setText("Rider is verified.... :) ");
             verifyButton.setEnabled(false);
         });
-        riderViewModel.getRidersLiverData().observe(this, riders -> {
+        appViewModel.getRidersLiverData().observe(this, riders -> {
             Log.d(TAG, "===> number of riders found: " + riders.size());
         });
     }
@@ -45,11 +45,11 @@ public class RiderActivity extends AppCompatActivity {
 
     @OnClick(R.id.verifyButton)
     public void verifyRider() {
-        riderViewModel.verifyUser();
+        appViewModel.verifyUser();
     }
 
     @OnClick(R.id.findRidersButton)
     public void findRiders() {
-        riderViewModel.findRiders();
+        appViewModel.findRiders();
     }
 }

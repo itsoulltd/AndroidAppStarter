@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.ui.rider;
+package lab.itsoul.com.deliman.rider.ui.app;
 
 import android.app.Application;
 
@@ -16,14 +16,14 @@ import lab.itsoul.com.deliman.libshared.data.rider.RiderRepository;
 import lab.itsoul.com.deliman.libshared.model.Rider;
 import lab.itsoul.com.deliman.libshared.model.VerificationResult;
 
-public class RiderViewModel extends AndroidViewModel {
+public class AppViewModel extends AndroidViewModel {
 
     private MutableLiveData<VerificationResult> userStatusLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Rider>> ridersLiverData = new MutableLiveData<>();
     //TODO: make this happen via dependency injection based on debug/release
     private RiderRepository riderRepository = new RiderRepository(new MockRiderDataSource(getApplication()));
 
-    public RiderViewModel(@NonNull Application application) {
+    public AppViewModel(@NonNull Application application) {
         super(application);
     }
 

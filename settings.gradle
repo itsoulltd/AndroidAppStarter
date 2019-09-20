@@ -1,1 +1,1 @@
-include ':rider', ':GeoTrackerAndroidKit', ':libshared', ':merchant'
+include ':app', ':GeoTrackerAndroidKit', ':libshared'

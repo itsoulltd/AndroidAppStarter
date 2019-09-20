@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="lab.itsoul.com.deliman.rider.ui.rider.RiderActivity">
+        <activity android:name="lab.itsoul.com.deliman.rider.ui.app.AppActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
