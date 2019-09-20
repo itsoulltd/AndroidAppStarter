@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.ui.app;
+package lab.itsoul.com.deliman.starter.ui.app;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import lab.itsoul.com.deliman.rider.startup.R;
+import lab.itsoul.com.deliman.starter.startup.R;
 
 
 public class AppActivity extends AppCompatActivity {
@@ -39,6 +39,8 @@ public class AppActivity extends AppCompatActivity {
         });
         appViewModel.getRidersLiverData().observe(this, riders -> {
             Log.d(TAG, "===> number of riders found: " + riders.size());
+            verificationStatusTextView.setText("number of riders found: " + riders.size());
+            verifyButton.setEnabled(true);
         });
     }
 

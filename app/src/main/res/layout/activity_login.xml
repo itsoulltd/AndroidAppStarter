@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="lab.itsoul.com.deliman.rider.startup.activities.LoginActivity">
+    tools:context="lab.itsoul.com.deliman.starter.startup.activities.LoginActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

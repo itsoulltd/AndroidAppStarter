@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.ui;
+package lab.itsoul.com.deliman.starter.ui;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
-import lab.itsoul.com.deliman.rider.startup.R;
+import lab.itsoul.com.deliman.starter.startup.R;
 
 
 public class SplashActivity extends AppCompatActivity {

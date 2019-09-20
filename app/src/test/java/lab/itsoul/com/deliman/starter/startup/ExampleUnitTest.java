@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.startup;
+package lab.itsoul.com.deliman.starter.startup;
 
 import org.junit.Test;
 

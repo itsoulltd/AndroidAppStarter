@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.rider.ui.app;
+package lab.itsoul.com.deliman.starter.ui.app;
 
 import android.app.Application;
 
