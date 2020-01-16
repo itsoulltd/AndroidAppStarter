@@ -37,7 +37,7 @@ public class AppActivity extends AppCompatActivity {
             verificationStatusTextView.setText("Rider is verified.... :) ");
             verifyButton.setEnabled(false);
         });
-        appViewModel.getRidersLiverData().observe(this, riders -> {
+        appViewModel.findRiders().observe(this, riders -> {
             Log.d(TAG, "===> number of riders found: " + riders.size());
             verificationStatusTextView.setText("number of riders found: " + riders.size());
             verifyButton.setEnabled(true);

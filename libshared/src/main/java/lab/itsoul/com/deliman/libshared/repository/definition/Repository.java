@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.libshared.data;
+package lab.itsoul.com.deliman.libshared.repository.definition;
 
 import lab.itsoul.com.deliman.libshared.util.DefaultScheduler;
 import lab.itsoul.com.deliman.libshared.util.Scheduler;
