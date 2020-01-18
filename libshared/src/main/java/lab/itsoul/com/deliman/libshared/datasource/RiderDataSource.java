@@ -5,7 +5,6 @@ import android.os.Handler;
 import com.itsoul.lab.android.data.base.DataStorage;
 import com.itsoul.lab.android.data.simple.SimpleDataSource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;

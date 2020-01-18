@@ -1,6 +1,5 @@
 package lab.itsoul.com.deliman.libshared.model;
 
-import com.it.soul.lab.sql.entity.Entity;
 import com.itsoul.lab.domain.base.Produce;
 
 public class Rider extends Produce {
