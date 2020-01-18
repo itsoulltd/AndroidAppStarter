@@ -7,6 +7,7 @@ import com.itsoul.lab.android.data.base.DataSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import lab.itsoul.com.deliman.libshared.datasource.RiderDataSource;
 import lab.itsoul.com.deliman.libshared.model.Rider;
@@ -19,12 +20,11 @@ public class RiderRepositoryImpl implements RiderRepository {
     public RiderRepositoryImpl() {}
 
     @Override
-    public LiveData<List<Rider>> findRiders() {
-        MutableLiveData<List<Rider>> liveData = new MutableLiveData<>();
+    public void findRiders(Consumer<List<Rider>> consumer) {
+        if (consumer == null) return;
         int maxItem = Long.valueOf(dataSource.size()).intValue();
         dataSource.readAsynch(0, maxItem, (riders) ->
-                liveData.postValue(Arrays.asList(riders))
+                consumer.accept(Arrays.asList(riders))
         );
-        return liveData;
     }
 }

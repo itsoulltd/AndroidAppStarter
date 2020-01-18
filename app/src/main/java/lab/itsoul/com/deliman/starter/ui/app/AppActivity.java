@@ -32,12 +32,12 @@ public class AppActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         appViewModel = new AppViewModel(getApplication());
-        appViewModel.getUserStatusLiveData().observe(this, verificationResult -> {
+        appViewModel.getUserStatusObservable().observe(this, verificationResult -> {
             Log.d(TAG, "===> result: " + verificationResult.isVerified());
             verificationStatusTextView.setText("Rider is verified.... :) ");
             verifyButton.setEnabled(false);
         });
-        appViewModel.findRiders().observe(this, riders -> {
+        appViewModel.getRiderObservable().observe(this, riders -> {
             Log.d(TAG, "===> number of riders found: " + riders.size());
             verificationStatusTextView.setText("number of riders found: " + riders.size());
             verifyButton.setEnabled(true);
