@@ -3,6 +3,8 @@ package lab.itsoul.com.deliman.libshared.repository.impl;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.itsoul.lab.android.data.base.DataSource;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import lab.itsoul.com.deliman.libshared.repository.definition.RiderRepository;
 
 public class RiderRepositoryImpl implements RiderRepository {
 
-    private RiderDataSource dataSource = new RiderDataSource();
+    private DataSource<Integer, Rider> dataSource = new RiderDataSource();
 
     public RiderRepositoryImpl() {}
 
