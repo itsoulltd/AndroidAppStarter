@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">libshared</string>
+    <string name="go">Go</string>
 </resources>

@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.starter.ui;
+package lab.itsoul.com.deliman.starter.ui.activities.splash;
 
 import android.os.Bundle;
 

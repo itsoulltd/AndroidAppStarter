@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Deliman Rider</string>
+    <string name="app_name">Starter App</string>
     <string name="title_activity_splash">SplashActivity</string>
 </resources>

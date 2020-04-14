@@ -1,4 +1,4 @@
-package lab.itsoul.com.deliman.starter.ui.app;
+package lab.itsoul.com.deliman.starter.ui.activities.app;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lab.itsoul.com.deliman.libshared.ui.BaseActivity.BaseLocationActivity;
+import lab.itsoul.com.deliman.libshared.ui.BaseActivity.BaseNetworkActivity;
 import lab.itsoul.com.deliman.starter.startup.R;
 
 
-public class AppActivity extends AppCompatActivity {
+public class AppActivity extends BaseNetworkActivity {
 
     private static final String TAG = AppActivity.class.getName();
     @BindView(R.id.verificationStatusTextView)
