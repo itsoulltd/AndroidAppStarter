@@ -63,34 +63,11 @@ dependencies {
     implementation 'com.eyalbira.loadingdots:loading-dots:1.0.2'
 
     //Droid client for communicating with micro-services todo
-    implementation('com.it.soul.lab:jsql-editor:1.1.3-SNAPSHOT') {
-        exclude group: 'mysql'
-        exclude group: 'com.datastax.cassandra'
-        exclude group: 'com.google.guava'
-        exclude group: 'com.codahale.metrics'
-        exclude group: 'io.netty'
-    }
-    implementation('com.itsoul.lab:micro-rules-validation-engine:1.1') {
-        exclude group: 'com.codahale.metrics'
-        exclude group: 'io.netty'
-    }
-    implementation('com.itsoul.lab:micro-actorpool:1.1.2') {
-        exclude group: 'com.codahale.metrics'
-        exclude group: 'io.netty'
-    }
-    implementation('com.itsoul.lab:micro-service-core:1.1') {
-        exclude group: 'com.codahale.metrics'
-        exclude group: 'io.netty'
-    }
-    implementation('com.itsoul.lab:geo-tracker-micro-core:1.1') {
-        exclude group: 'javax.persistence'
-        exclude group: 'org.hibernate'
-        exclude group: 'mysql'
-        exclude group: 'com.datastax.cassandra'
-        exclude group: 'com.google.guava'
-        exclude group: 'com.codahale.metrics'
-        exclude group: 'io.netty'
-    }
+    implementation 'com.it.soul.lab:jsql-editor:1.1.3-SNAPSHOT'
+    implementation 'com.itsoul.lab:micro-rules-validation-engine:1.1'
+    implementation 'com.itsoul.lab:micro-actorpool:1.1.2'
+    implementation 'com.itsoul.lab:micro-service-core:1.1'
+    implementation 'com.itsoul.lab:geo-tracker-micro-core:1.1'
     implementation project(path: ':GeoTrackerAndroidKit')
     implementation project(path: ':libshared')
 

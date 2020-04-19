@@ -2,7 +2,7 @@ package lab.itsoul.com.deliman.libshared.datasource;
 
 import android.os.Handler;
 
-import com.itsoul.lab.android.data.base.DataStorage;
+import com.it.soul.lab.data.base.DataStorage;
 import com.itsoul.lab.android.data.simple.SimpleDataSource;
 
 import java.util.Arrays;
@@ -49,8 +49,8 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
 
     private Rider[] getDummyData(){
         return new Rider[]{
-                new Rider("Rider-1", "sdfaf")
-                , new Rider("Rider-2", "sdfafdf")
+                new Rider("Rider-1", "#geo-hash-001")
+                , new Rider("Rider-2", "#geo-hash-002")
         };
     }
 
