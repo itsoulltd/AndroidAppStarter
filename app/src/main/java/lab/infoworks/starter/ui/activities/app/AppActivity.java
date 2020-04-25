@@ -9,11 +9,11 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import lab.infoworks.libshared.ui.BaseActivity.BaseNetworkActivity;
+import lab.infoworks.libshared.ui.BaseActivity.BaseLocationActivity;
 import lab.infoworks.starter.R;
 
 
-public class AppActivity extends BaseNetworkActivity {
+public class AppActivity extends BaseLocationActivity {
 
     private static final String TAG = AppActivity.class.getName();
     @BindView(R.id.verificationStatusTextView)

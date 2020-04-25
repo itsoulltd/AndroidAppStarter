@@ -1,6 +1,9 @@
 package lab.infoworks.libshared.datasource;
 
+import android.os.Build;
 import android.os.Handler;
+
+import androidx.annotation.RequiresApi;
 
 import com.it.soul.lab.data.base.DataStorage;
 import com.it.soul.lab.data.simple.SimpleDataSource;
@@ -17,7 +20,7 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
         retrieve();
     }
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.N)
     public void readAsynch(int offset, int pageSize, Consumer<Rider[]> consumer) {
         if (consumer != null) {
             new Handler().postDelayed(() -> {
@@ -49,8 +52,8 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
 
     private Rider[] getDummyData(){
         return new Rider[]{
-                new Rider("Rider-1", "#geo-hash-001")
-                , new Rider("Rider-2", "#geo-hash-002")
+                new Rider("Rider-1", "#geo-hash-001").setEmail("rider-1@gmail.com")
+                , new Rider("Rider-2", "#geo-hash-002").setEmail("rider-2@gmail.com")
         };
     }
 
