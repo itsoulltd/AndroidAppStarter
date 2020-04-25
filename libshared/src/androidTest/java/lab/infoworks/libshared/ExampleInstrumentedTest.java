@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("lab.itsoul.com.deliman.libshared.test", appContext.getPackageName());
+        assertEquals("lab.infoworks.starter.ui.app.StarterApp", appContext.getPackageName());
     }
 }

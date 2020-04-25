@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import lab.itsoul.com.deliman.libshared.R;
+import lab.infoworks.libshared.R;
 
 
 /**
