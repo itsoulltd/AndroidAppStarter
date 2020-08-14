@@ -1,5 +1,6 @@
 package lab.infoworks.libshared.datasource;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 
@@ -8,15 +9,24 @@ import androidx.annotation.RequiresApi;
 import com.it.soul.lab.data.base.DataStorage;
 import com.it.soul.lab.data.simple.SimpleDataSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
+import lab.infoworks.libshared.datasource.db.AppDB;
+import lab.infoworks.libshared.datasource.db.dao.RiderDAO;
 import lab.infoworks.libshared.model.Rider;
 
 public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements DataStorage {
 
-    public RiderDataSource(){
+    private AppDB db;
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    public RiderDataSource(Context context){
+        this.db = AppDB.getInstance(context);
         retrieve();
     }
 
@@ -33,34 +43,34 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
     }
 
     @Override
-    public void save(boolean asynch) {
+    public void save(boolean async) {
         //TODO: Save Data using Preferred Persistence Technology:
+        executor.submit(() -> {
+            RiderDAO dao = db.riderDao();
+            dao.insert(new ArrayList<>(getInMemoryStorage().values()));
+        });
     }
 
     @Override
     public boolean retrieve() {
         //TODO: Retrieve Data using Preferred Persistence Technology:
-        if (getInMemoryStorage().size() <= 0){
-            int index = 0;
-            for (Rider rider : getDummyData()) {
-                getInMemoryStorage().put(index++, rider);
+        executor.submit(() -> {
+            int size = db.riderDao().rowCount();
+            List<Rider> results = db.riderDao().read(size, 0);
+            for (Rider rider: results) {
+                put(rider.getId(), rider);
             }
-        }
-        //
+        });
         return true;
-    }
-
-    private Rider[] getDummyData(){
-        return new Rider[]{
-                new Rider("Rider-1", "#geo-hash-001").setEmail("rider-1@gmail.com")
-                , new Rider("Rider-2", "#geo-hash-002").setEmail("rider-2@gmail.com")
-        };
     }
 
     @Override
     public boolean delete() {
         //TODO: Delete Data using Preferred Persistence Technology:
-        return false;
+        executor.submit(() -> {
+            db.riderDao().deleteAll();
+        });
+        return true;
     }
 
 }

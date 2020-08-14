@@ -20,7 +20,7 @@ public class AppViewModel extends AndroidViewModel {
     private MutableLiveData<List<Rider>> riderLiveData = new MutableLiveData<>();
 
     //TODO: make this happen via dependency injection based on debug/release
-    private RiderRepository riderRepository = new RiderRepositoryImpl();
+    private RiderRepository riderRepository = new RiderRepositoryImpl(getApplication().getApplicationContext());
 
     public AppViewModel(@NonNull Application application) {
         super(application);
@@ -31,6 +31,7 @@ public class AppViewModel extends AndroidViewModel {
     }
 
     public void verifyUser() {
+        if(riderRepository.isEmpty()) riderRepository.addSampleData();
         userStatusLiveData.postValue(new VerificationResult(true));
     }
 

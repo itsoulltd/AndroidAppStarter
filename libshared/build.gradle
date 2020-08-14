@@ -51,6 +51,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     api 'com.google.guava:guava:28.0-android'
 
+    //Room-DB
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
     //OkHttp
     implementation("com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion")
     testImplementation("com.squareup.okhttp3:mockwebserver:$rootProject.okhttpVersion")
@@ -76,4 +82,8 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
     testImplementation "com.nhaarman:mockito-kotlin:$rootProject.mockitoKotlinVersion"
     testImplementation "org.hamcrest:hamcrest-library:$rootProject.hamcrestVersion"
+    // Android instrument tests
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+
 }

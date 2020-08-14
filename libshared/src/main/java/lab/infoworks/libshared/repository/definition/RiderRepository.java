@@ -7,4 +7,6 @@ import lab.infoworks.libshared.model.Rider;
 
 public interface RiderRepository extends Repository {
     void findRiders(Consumer<List<Rider>> consumer);
+    void addSampleData();
+    boolean isEmpty();
 }
