@@ -1,5 +1,9 @@
 package lab.infoworks.libshared.repository.impl;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.it.soul.lab.data.base.DataSource;
 
 import java.util.Arrays;
@@ -16,7 +20,7 @@ public class RiderRepositoryImpl implements RiderRepository {
 
     public RiderRepositoryImpl() {}
 
-    @Override
+    @Override @RequiresApi(Build.VERSION_CODES.N)
     public void findRiders(Consumer<List<Rider>> consumer) {
         if (consumer == null) return;
         int maxItem = dataSource.size();
