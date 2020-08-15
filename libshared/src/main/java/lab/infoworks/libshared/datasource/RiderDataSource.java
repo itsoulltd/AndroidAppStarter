@@ -2,7 +2,6 @@ package lab.infoworks.libshared.datasource;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
 
 import androidx.annotation.RequiresApi;
 
@@ -31,24 +30,23 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
     }
 
     @Override @RequiresApi(Build.VERSION_CODES.N)
-    public void readAsynch(int offset, int pageSize, Consumer<Rider[]> consumer) {
+    public void readAsync(int offset, int pageSize, Consumer<Rider[]> consumer) {
         if (consumer != null) {
-            new Handler().postDelayed(() -> {
-                        //TODO:
-                        List<Rider> items = Arrays.asList(readSynch(offset, pageSize));
-                        consumer.accept(items.toArray(new Rider[0]));
-                    }
-                    , 1000);
+            //TODO:
+            List<Rider> items = Arrays.asList(readSync(offset, pageSize));
+            consumer.accept(items.toArray(new Rider[0]));
         }
     }
 
     @Override
     public void save(boolean async) {
         //TODO: Save Data using Preferred Persistence Technology:
-        executor.submit(() -> {
-            RiderDAO dao = db.riderDao();
-            dao.insert(new ArrayList<>(getInMemoryStorage().values()));
-        });
+        if (async){
+            executor.submit(() -> {
+                RiderDAO dao = db.riderDao();
+                dao.insert(new ArrayList<>(getInMemoryStorage().values()));
+            });
+        }
     }
 
     @Override

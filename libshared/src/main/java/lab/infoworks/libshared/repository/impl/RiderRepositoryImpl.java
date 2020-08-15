@@ -2,6 +2,7 @@ package lab.infoworks.libshared.repository.impl;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
 
 import androidx.annotation.RequiresApi;
 
@@ -28,19 +29,23 @@ public class RiderRepositoryImpl implements RiderRepository {
     @Override @RequiresApi(Build.VERSION_CODES.N)
     public void findRiders(Consumer<List<Rider>> consumer) {
         if (consumer == null) return;
-        int maxItem = dataSource.size();
-        dataSource.readAsynch(0, maxItem, (riders) ->
-                consumer.accept(Arrays.asList(riders))
-        );
+        final int maxItem = dataSource.size();
+        //TODO: For Simulating Network: Delay-1 sec
+        new Handler().postDelayed(() -> {
+                    //Calling API:
+                    dataSource.readAsync(0, maxItem, (riders) ->
+                            consumer.accept(Arrays.asList(riders))
+                    );
+                }
+                , 1000);
     }
 
     @Override
     public void addSampleData() {
-        int counter = 0;
         for (Rider rider : SampleData.getRiders()) {
-            dataSource.put(counter++, rider);
+            dataSource.add(rider);
         }
-        ((DataStorage<DataSource>)dataSource).save(false);
+        ((DataStorage)dataSource).save(true);
     }
 
     @Override
