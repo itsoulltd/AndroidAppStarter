@@ -8,4 +8,12 @@
     tools:context="lab.infoworks.starter.ui.activities.splash.SplashActivity"
     tools:showIn="@layout/activity_splash">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#CCFF0000"
+        tools:layout_editor_absoluteX="3dp"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
