@@ -1,19 +1,14 @@
 package lab.infoworks.starter.ui.activities.splash;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.os.Handler;
-import android.view.View;
 
 import lab.infoworks.starter.R;
-import lab.infoworks.starter.ui.activities.app.AppActivity;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -22,16 +17,24 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        startHandler();
+        try {
+            ActivityInfo ai = getPackageManager().getActivityInfo(getComponentName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+            start(1000, bundle.getString("landingPage"));
+        } catch (ClassNotFoundException | PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void startHandler() {
+    private void start(long withDelay, String landingPage) throws ClassNotFoundException {
+        if (landingPage == null || landingPage.isEmpty()) throw new ClassNotFoundException();
+        final Class<?> to = Class.forName(landingPage);
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, AppActivity.class);
+            Intent intent = new Intent(SplashActivity.this, to);
             startActivity(intent);
             finish();
-        },1000);
+        },withDelay);
     }
 
 }
