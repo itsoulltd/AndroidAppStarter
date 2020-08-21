@@ -1,58 +1,55 @@
-package lab.infoworks.libshared.datasource;
+package lab.infoworks.libshared;
+
+import android.content.Context;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 import java.util.List;
 
+import lab.infoworks.libshared.datasource.RiderDataSource;
 import lab.infoworks.libshared.model.Rider;
 
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class RiderDataSourceTest {
 
+    public static String TAG = "RiderDataSourceTest";
     RiderDataSource dataSource;
 
     @Before
     public void setUp() throws Exception {
-
-        dataSource = new RiderDataSource();
-        int index = dataSource.size() - 1;
-        dataSource.put(index++, new Rider()
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        dataSource = new RiderDataSource(appContext);
+        //
+        dataSource.add(new Rider()
                 .setName("John")
-                .setEmail("john@gmail.com")
-                .setAge(36)
-                .setGender("male"));
+                .setEmail("john@gmail.com"));
 
-        dataSource.put(index++, new Rider()
+        dataSource.add(new Rider()
                 .setName("Eve")
-                .setEmail("eve@gmail.com")
-                .setAge(21)
-                .setGender("female"));
+                .setEmail("eve@gmail.com"));
 
-        dataSource.put(index++, new Rider()
+        dataSource.add(new Rider()
                 .setName("Mosses")
-                .setEmail("mosses@gmail.com")
-                .setAge(31)
-                .setGender("male"));
+                .setEmail("mosses@gmail.com"));
 
-        dataSource.put(index++, new Rider()
+        dataSource.add(new Rider()
                 .setName("Abraham")
-                .setEmail("abraham@gmail.com")
-                .setAge(31)
-                .setGender("male"));
+                .setEmail("abraham@gmail.com"));
 
-        dataSource.put(index++, new Rider()
+        dataSource.add(new Rider()
                 .setName("Ahmed")
-                .setEmail("ahmed@gmail.com")
-                .setAge(31)
-                .setGender("male"));
+                .setEmail("ahmed@gmail.com"));
 
-        dataSource.put(index++, new Rider()
+        dataSource.add(new Rider()
                 .setName("Adam")
-                .setEmail("adam@gmail.com")
-                .setAge(31)
-                .setGender("male"));
+                .setEmail("adam@gmail.com"));
     }
 
     @After
@@ -65,57 +62,57 @@ public class RiderDataSourceTest {
 
         System.out.println("===========================0-(datasource.size())======================");
         int maxItem = Long.valueOf(dataSource.size()).intValue();
-        List<Rider> readAll = Arrays.asList(dataSource.readSynch(0, maxItem));
+        List<Rider> readAll = Arrays.asList(dataSource.readSync(0, maxItem));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================1-2==========================");
-        readAll = Arrays.asList(dataSource.readSynch(1, 2));
+        readAll = Arrays.asList(dataSource.readSync(1, 2));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================2-3=========================");
-        readAll = Arrays.asList(dataSource.readSynch(2, 3));
+        readAll = Arrays.asList(dataSource.readSync(2, 3));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================0-3=========================");
-        readAll = Arrays.asList(dataSource.readSynch(0, 3));
+        readAll = Arrays.asList(dataSource.readSync(0, 3));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================0-2========================");
-        readAll = Arrays.asList(dataSource.readSynch(0, 2));
+        readAll = Arrays.asList(dataSource.readSync(0, 2));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================100-10=======================");
-        readAll = Arrays.asList(dataSource.readSynch(100, 10));
+        readAll = Arrays.asList(dataSource.readSync(100, 10));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================0-0=======================");
-        readAll = Arrays.asList(dataSource.readSynch(0, 0));
+        readAll = Arrays.asList(dataSource.readSync(0, 0));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================1-0=======================");
-        readAll = Arrays.asList(dataSource.readSynch(1, 0));
+        readAll = Arrays.asList(dataSource.readSync(1, 0));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================4-1=======================");
-        readAll = Arrays.asList(dataSource.readSynch(4, 1));
+        readAll = Arrays.asList(dataSource.readSync(4, 1));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================4-2=======================");
-        readAll = Arrays.asList(dataSource.readSynch(4, 2));
+        readAll = Arrays.asList(dataSource.readSync(4, 2));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================4-3=======================");
-        readAll = Arrays.asList(dataSource.readSynch(4, 3));
+        readAll = Arrays.asList(dataSource.readSync(4, 3));
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
