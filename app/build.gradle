@@ -27,6 +27,32 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    flavorDimensions 'appstarter'
+    productFlavors {
+        dev {
+            dimension 'appstarter'
+            applicationIdSuffix 'dev'
+            def propertiesFile = file("dev.properties")
+            def properties = new Properties()
+            if(propertiesFile.canRead()) {
+                properties.load(new FileInputStream(propertiesFile))
+                for (String key : properties.keys()){
+                    buildConfigField("String", key, properties[key])
+                }
+            }
+        }
+        prod {
+            dimension 'appstarter'
+            def propertiesFile = file("prod.properties")
+            def properties = new Properties()
+            if(propertiesFile.canRead()) {
+                properties.load(new FileInputStream(propertiesFile))
+                for (String key : properties.keys()){
+                    buildConfigField("String", key, properties[key])
+                }
+            }
+        }
+    }
 }
 
 dependencies {
