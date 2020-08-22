@@ -1,10 +1,9 @@
 package lab.infoworks.libshared.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.infoworks.lab.rest.models.Response;
 
 public class VerificationResult extends Response {
-    @SerializedName("isVerified")
+
     private boolean isVerified;
 
     public VerificationResult() {
