@@ -10,10 +10,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lab.infoworks.libshared.ui.BaseActivity.BaseLocationActivity;
+import lab.infoworks.libshared.ui.BaseActivity.BaseNetworkActivity;
 import lab.infoworks.starter.R;
 
 
-public class AppActivity extends BaseLocationActivity {
+public class AppActivity extends BaseNetworkActivity {
 
     private static final String TAG = AppActivity.class.getName();
     @BindView(R.id.verificationStatusTextView)
