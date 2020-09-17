@@ -29,7 +29,9 @@ public abstract class BaseLocationActivity extends KeepScreenOnActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getLocationPermissionController().stopMonitoring();
+        try {
+            getLocationPermissionController().close();
+        } catch (Exception e) {}
     }
 
     @Override

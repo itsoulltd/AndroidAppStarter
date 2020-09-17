@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class LocationPermissionController {
+public class LocationPermissionController implements AutoCloseable{
 
     private LocationPermissionsObserver _observer;
     public LocationPermissionController() {}
@@ -50,7 +50,6 @@ public class LocationPermissionController {
         return false;
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     public void askForPermissionAtRuntime(Activity context){
         if (LocationPermissionsObserver.class.isAssignableFrom(context.getClass())){
             _observer = (LocationPermissionsObserver) context;
@@ -88,14 +87,20 @@ public class LocationPermissionController {
     }
 
     private LocationProviderObserver _providerObserver;
-    private ExecutorService exe = Executors.newSingleThreadExecutor();
+    private ExecutorService exe;
+    private ExecutorService getExe() {
+        if (exe == null){
+            exe = Executors.newSingleThreadExecutor();
+        }
+        return exe;
+    }
 
     public void checkLocationProviderAvailability(Activity context){
 
         if (LocationProviderObserver.class.isAssignableFrom(context.getClass()))
             _providerObserver = (LocationProviderObserver) context;
 
-        exe.submit(new Runnable() {
+        getExe().submit(new Runnable() {
             @Override
             public void run() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
@@ -158,11 +163,17 @@ public class LocationPermissionController {
         });
     }
 
-    public void stopMonitoring(){
-        if (exe.isShutdown() == false){
+    private void stopExecution() throws Exception{
+        if (exe != null && exe.isShutdown() == false){
             exe.shutdownNow();
+            exe = null;
         }
     }
 
-
+    @Override
+    public void close() throws Exception {
+        stopExecution();
+        _providerObserver = null;
+        _observer = null;
+    }
 }
