@@ -38,14 +38,14 @@ public class NotificationCenter {
         receivers.add(responseHandler);
     }
 
-    private static boolean checkParqams(Context context, String notifications){
+    private static boolean checkParams(Context context, String notifications){
         if (context == null) return false;
         if (notifications == null || notifications.isEmpty()) return false;
         return true;
     }
 
     public static void addObserver(Context context, String notification, BroadcastReceiver responseHandler) {
-        if (!checkParqams(context, notification)) return;
+        if (!checkParams(context, notification)) return;
         putIntoMapper(context, notification, responseHandler);
         LocalBroadcastManager.getInstance(context)
                 .registerReceiver(responseHandler
@@ -53,13 +53,13 @@ public class NotificationCenter {
     }
 
     public static void addObserver(Context context, String notification, NotificationHandler responseHandler) {
-        if (!checkParqams(context, notification)) return;
+        if (!checkParams(context, notification)) return;
         SimpleBroadcastReceiver receiver = new SimpleBroadcastReceiver(responseHandler);
         addObserver(context, notification, receiver);
     }
 
     public static void addObserverOnMain(Context context, String notification, NotificationHandler responseHandler) {
-        if (!checkParqams(context, notification)) return;
+        if (!checkParams(context, notification)) return;
         SimpleBroadcastReceiver receiver = new SimpleBroadcastReceiver(responseHandler, true);
         addObserver(context, notification, receiver);
     }
@@ -74,18 +74,19 @@ public class NotificationCenter {
     }
 
     protected static void removeThemAll(Context context, String notifications){
-        //
         List<BroadcastReceiver> all = getReceivers(getKey(context, notifications));
-        all.stream().forEach(broadcastReceiver -> removeObserver(context, broadcastReceiver));
+        for (BroadcastReceiver broadcastReceiver : all) {
+            removeObserver(context, broadcastReceiver);
+        }
     }
 
     public static void removeObserver(Context context, String notification) {
-        if (!checkParqams(context, notification)) return;
+        if (!checkParams(context, notification)) return;
         removeThemAll(context, notification);
     }
 
     public static void postNotification(Context context, String notification, Map<String, Object> params) {
-        if (!checkParqams(context, notification)) return;
+        if (!checkParams(context, notification)) return;
         Intent intent = new Intent(notification);
         // insert parameters if needed
         if (params != null && !params.isEmpty()) {
