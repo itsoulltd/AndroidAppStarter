@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -102,7 +103,7 @@ public class NotificationCenter {
 
     private final static class SimpleBroadcastReceiver extends BroadcastReceiver {
 
-        private NotificationHandler handler;
+        private final NotificationHandler handler;
         private boolean dispatchOnMain;
 
         public SimpleBroadcastReceiver(NotificationHandler handler) {
@@ -125,9 +126,8 @@ public class NotificationCenter {
         public void onReceive(Context context, Intent intent) {
             if (handler != null){
                 if (dispatchOnMain){
-                    new Handler().post(() -> {
-                        handler.apply(context, intent);
-                    });
+                    Looper mainLooper = (context != null) ? context.getMainLooper() : Looper.getMainLooper();
+                    new Handler(mainLooper).post(() -> handler.apply(context, intent));
                 }else {
                     handler.apply(context, intent);
                 }
