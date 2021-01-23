@@ -22,7 +22,14 @@ import lab.infoworks.libshared.domain.model.Rider;
 public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements DataStorage, AutoCloseable {
 
     private AppDB db;
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private ExecutorService executor;
+
+    private ExecutorService getExecutor() {
+        if (executor == null){
+            executor = Executors.newSingleThreadExecutor();
+        }
+        return executor;
+    }
 
     public RiderDataSource(Context context){
         this.db = AppDB.getInstance(context);
@@ -42,7 +49,7 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
     public void save(boolean async) {
         //TODO: Save Data using Preferred Persistence Technology:
         if (async){
-            executor.submit(() -> {
+            getExecutor().submit(() -> {
                 RiderDAO dao = db.riderDao();
                 dao.insert(new ArrayList<>(getInMemoryStorage().values()));
             });
@@ -52,7 +59,7 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
     @Override
     public boolean retrieve() {
         //TODO: Retrieve Data using Preferred Persistence Technology:
-        executor.submit(() -> {
+        getExecutor().submit(() -> {
             int size = db.riderDao().rowCount();
             List<Rider> results = db.riderDao().read(size, 0);
             for (Rider rider: results) {
@@ -65,7 +72,7 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
     @Override
     public boolean delete() {
         //TODO: Delete Data using Preferred Persistence Technology:
-        executor.submit(() -> {
+        getExecutor().submit(() -> {
             db.riderDao().deleteAll();
         });
         return true;
@@ -75,6 +82,7 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
     public void close() throws Exception {
         if (executor != null && !executor.isShutdown()){
             executor.shutdown();
+            executor = null;
         }
     }
 }
