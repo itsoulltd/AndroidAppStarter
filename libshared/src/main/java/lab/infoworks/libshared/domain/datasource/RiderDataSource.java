@@ -19,7 +19,7 @@ import lab.infoworks.libshared.domain.datasource.db.AppDB;
 import lab.infoworks.libshared.domain.datasource.db.dao.RiderDAO;
 import lab.infoworks.libshared.domain.model.Rider;
 
-public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements DataStorage {
+public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements DataStorage, AutoCloseable {
 
     private AppDB db;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -71,4 +71,10 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
         return true;
     }
 
+    @Override
+    public void close() throws Exception {
+        if (executor != null && !executor.isShutdown()){
+            executor.shutdown();
+        }
+    }
 }
