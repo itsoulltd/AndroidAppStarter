@@ -15,10 +15,10 @@ import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 
-import lab.infoworks.libshared.datasource.SampleData;
-import lab.infoworks.libshared.datasource.db.AppDB;
-import lab.infoworks.libshared.datasource.db.dao.RiderDAO;
-import lab.infoworks.libshared.model.Rider;
+import lab.infoworks.libshared.domain.datasource.SampleData;
+import lab.infoworks.libshared.domain.datasource.db.AppDB;
+import lab.infoworks.libshared.domain.datasource.db.dao.RiderDAO;
+import lab.infoworks.libshared.domain.model.Rider;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class RiderDaoTest {

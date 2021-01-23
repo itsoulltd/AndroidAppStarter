@@ -1,6 +1,6 @@
-package lab.infoworks.libshared.datasource;
+package lab.infoworks.libshared.domain.datasource;
 
-import lab.infoworks.libshared.model.Rider;
+import lab.infoworks.libshared.domain.model.Rider;
 
 public class SampleData {
 

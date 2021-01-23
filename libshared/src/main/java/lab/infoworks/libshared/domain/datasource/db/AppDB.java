@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.datasource.db;
+package lab.infoworks.libshared.domain.datasource.db;
 
 import android.content.Context;
 
@@ -8,8 +8,8 @@ import androidx.room.RoomDatabase;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-import lab.infoworks.libshared.datasource.db.dao.RiderDAO;
-import lab.infoworks.libshared.model.Rider;
+import lab.infoworks.libshared.domain.datasource.db.dao.RiderDAO;
+import lab.infoworks.libshared.domain.model.Rider;
 
 @Database(entities = {Rider.class}, version = 1)
 public abstract class AppDB extends RoomDatabase {

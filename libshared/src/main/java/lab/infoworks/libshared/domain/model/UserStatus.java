@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.model;
+package lab.infoworks.libshared.domain.model;
 
 public class UserStatus {
     private boolean isVerified = false;

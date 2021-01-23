@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.datasource;
+package lab.infoworks.libshared.domain.datasource;
 
 import android.content.Context;
 import android.os.Build;
@@ -15,9 +15,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-import lab.infoworks.libshared.datasource.db.AppDB;
-import lab.infoworks.libshared.datasource.db.dao.RiderDAO;
-import lab.infoworks.libshared.model.Rider;
+import lab.infoworks.libshared.domain.datasource.db.AppDB;
+import lab.infoworks.libshared.domain.datasource.db.dao.RiderDAO;
+import lab.infoworks.libshared.domain.model.Rider;
 
 public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements DataStorage {
 

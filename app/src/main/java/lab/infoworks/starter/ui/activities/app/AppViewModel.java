@@ -9,10 +9,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import lab.infoworks.libshared.model.Rider;
-import lab.infoworks.libshared.model.VerificationResult;
-import lab.infoworks.libshared.repository.definition.RiderRepository;
-import lab.infoworks.libshared.repository.impl.RiderRepositoryImpl;
+import lab.infoworks.libshared.domain.model.Rider;
+import lab.infoworks.libshared.domain.model.VerificationResult;
+import lab.infoworks.libshared.domain.repository.definition.RiderRepository;
+import lab.infoworks.libshared.domain.repository.impl.RiderRepositoryImpl;
 
 public class AppViewModel extends AndroidViewModel {
 

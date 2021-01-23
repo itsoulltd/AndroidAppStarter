@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.datasource.db.dao;
+package lab.infoworks.libshared.domain.datasource.db.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,7 +8,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import lab.infoworks.libshared.model.Rider;
+import lab.infoworks.libshared.domain.model.Rider;
 
 @Dao
 public interface RiderDAO {

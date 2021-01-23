@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.repository.impl;
+package lab.infoworks.libshared.domain.repository.impl;
 
 import android.content.Context;
 import android.os.Build;
@@ -13,10 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-import lab.infoworks.libshared.datasource.RiderDataSource;
-import lab.infoworks.libshared.datasource.SampleData;
-import lab.infoworks.libshared.model.Rider;
-import lab.infoworks.libshared.repository.definition.RiderRepository;
+import lab.infoworks.libshared.domain.datasource.RiderDataSource;
+import lab.infoworks.libshared.domain.datasource.SampleData;
+import lab.infoworks.libshared.domain.model.Rider;
+import lab.infoworks.libshared.domain.repository.definition.RiderRepository;
 
 public class RiderRepositoryImpl implements RiderRepository {
 

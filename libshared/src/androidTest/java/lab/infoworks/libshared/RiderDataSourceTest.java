@@ -13,8 +13,8 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.List;
 
-import lab.infoworks.libshared.datasource.RiderDataSource;
-import lab.infoworks.libshared.model.Rider;
+import lab.infoworks.libshared.domain.datasource.RiderDataSource;
+import lab.infoworks.libshared.domain.model.Rider;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class RiderDataSourceTest {

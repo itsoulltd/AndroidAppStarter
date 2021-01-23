@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.model;
+package lab.infoworks.libshared.domain.model;
 
 import com.infoworks.lab.rest.models.Response;
 
