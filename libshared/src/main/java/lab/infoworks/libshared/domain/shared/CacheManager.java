@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.cache;
+package lab.infoworks.libshared.domain.shared;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.infoworks.lab.rest.models.Message;
@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import lab.infoworks.libshared.domain.datasource.CMDataSource;
-import lab.infoworks.libshared.util.AppStorage;
 
 public class CacheManager<E extends Entity> {
 

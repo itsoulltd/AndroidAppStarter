@@ -6,17 +6,15 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.it.soul.lab.data.base.DataStorage;
-import com.it.soul.lab.data.simple.SimpleDataSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-import lab.infoworks.libshared.domain.datasource.db.AppDB;
-import lab.infoworks.libshared.domain.datasource.db.dao.RiderDAO;
+import lab.infoworks.libshared.domain.db.AppDB;
+import lab.infoworks.libshared.domain.db.dao.RiderDAO;
 import lab.infoworks.libshared.domain.model.Rider;
 
 public class RiderDataSource extends CMDataSource<Integer, Rider> implements DataStorage, AutoCloseable {

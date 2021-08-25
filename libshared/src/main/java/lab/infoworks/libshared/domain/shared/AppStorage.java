@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util;
+package lab.infoworks.libshared.domain.shared;
 
 import android.content.Context;
 import android.content.SharedPreferences;

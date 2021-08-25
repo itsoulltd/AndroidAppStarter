@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.domain.datasource.db.dao;
+package lab.infoworks.libshared.domain.db.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
