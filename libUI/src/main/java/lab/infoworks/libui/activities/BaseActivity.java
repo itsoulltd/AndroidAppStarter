@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.ui.BaseActivity;
+package lab.infoworks.libui.activities;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -19,7 +19,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 import lab.infoworks.libshared.notifications.NotificationCenter;
 import lab.infoworks.libshared.notifications.NotificationType;
-import lab.infoworks.libshared.ui.alert.AlertSheetFragment;
+import lab.infoworks.libui.alert.AlertSheetFragment;
 
 public abstract class BaseActivity extends AppCompatActivity implements AlertSheetFragment.OnFragmentInteractionListener{
 

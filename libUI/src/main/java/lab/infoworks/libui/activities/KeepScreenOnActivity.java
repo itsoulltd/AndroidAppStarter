@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.ui.BaseActivity;
+package lab.infoworks.libui.activities;
 
 import android.os.Bundle;
 import android.view.WindowManager;

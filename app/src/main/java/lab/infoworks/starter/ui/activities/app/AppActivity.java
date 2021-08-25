@@ -12,8 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lab.infoworks.libshared.notifications.SystemNotificationTray;
-import lab.infoworks.libshared.ui.BaseActivity.BaseLocationActivity;
-import lab.infoworks.libshared.ui.BaseActivity.BaseNetworkActivity;
+import lab.infoworks.libui.activities.BaseNetworkActivity;
 import lab.infoworks.starter.R;
 
 

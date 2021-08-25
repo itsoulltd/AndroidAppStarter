@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.ui.alert;
+package lab.infoworks.libui.alert;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -60,9 +60,9 @@ public class AlertSheetFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_alert_sheet, container, false);
-        goBtn = view.findViewById(R.id.go_btn);
-        textView = view.findViewById(R.id.message_tv);
+        View view = inflater.inflate(lab.infoworks.libui.R.layout.fragment_alert_sheet, container, false);
+        goBtn = view.findViewById(lab.infoworks.libui.R.id.go_btn);
+        textView = view.findViewById(lab.infoworks.libui.R.id.message_tv);
         textView.setText(message);
         goBtn.setOnClickListener(v -> {
             this.dismiss();

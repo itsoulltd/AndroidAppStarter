@@ -1,1 +1,3 @@
-include ':app', ':libshared'
+include ':app'
+include ':libUI'
+include ':libshared'
