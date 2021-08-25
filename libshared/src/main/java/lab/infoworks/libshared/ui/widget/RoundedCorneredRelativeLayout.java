@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.widget;
+package lab.infoworks.libshared.ui.widget;
 
 import android.content.Context;
 import android.widget.RelativeLayout;

@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util;
+package lab.infoworks.libshared.notifications;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -7,13 +7,13 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Color;
 
-public class SystemNotificationTray extends ContextWrapper {
+public class CentralNotificationTray extends ContextWrapper {
 
     private NotificationManager mManager;
-    public static final String CHANNEL_ID = SystemNotificationTray.class.getName();
-    public static final String CHANNEL_NAME = SystemNotificationTray.class.getSimpleName();
+    public static final String CHANNEL_ID = CentralNotificationTray.class.getName();
+    public static final String CHANNEL_NAME = CentralNotificationTray.class.getSimpleName();
 
-    public SystemNotificationTray(Context base) {
+    public CentralNotificationTray(Context base) {
         super(base);
         createChannel();
     }

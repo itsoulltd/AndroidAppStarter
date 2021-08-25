@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 import lab.infoworks.libshared.domain.model.Rider;
 
-public interface RiderRepository extends Repository {
+public interface RiderRepository {
     void findRiders(Consumer<List<Rider>> consumer);
     void addSampleData();
     boolean isEmpty();
