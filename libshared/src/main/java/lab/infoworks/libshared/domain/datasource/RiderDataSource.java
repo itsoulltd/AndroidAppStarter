@@ -19,7 +19,7 @@ import lab.infoworks.libshared.domain.datasource.db.AppDB;
 import lab.infoworks.libshared.domain.datasource.db.dao.RiderDAO;
 import lab.infoworks.libshared.domain.model.Rider;
 
-public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements DataStorage, AutoCloseable {
+public class RiderDataSource extends CMDataSource<Integer, Rider> implements DataStorage, AutoCloseable {
 
     private AppDB db;
     private ExecutorService executor;
@@ -40,7 +40,7 @@ public class RiderDataSource extends SimpleDataSource<Integer, Rider> implements
     public void readAsync(int offset, int pageSize, Consumer<Rider[]> consumer) {
         if (consumer != null) {
             //TODO:
-            List<Rider> items = Arrays.asList(readSync(offset, pageSize));
+            List<Rider> items = readSyncAsList(offset, pageSize);
             consumer.accept(items.toArray(new Rider[0]));
         }
     }
