@@ -1,0 +1,27 @@
+{
+  "verify": {
+    "isVerified": true
+  },
+  "findRiders": [
+    {
+      "name": "Rahim",
+      "geoHash": "GeoHash-1",
+      "email": "rahim@gmail.com"
+    },
+    {
+      "name": "Karim",
+      "geoHash": "GeoHash-2",
+      "email": "karim@gmail.com"
+    },
+    {
+      "name": "Jamal",
+      "geoHash": "GeoHash-3",
+      "email": "jamal@gmail.com"
+    },
+    {
+      "name": "Naiem",
+      "geoHash": "GeoHash-4",
+      "email": "naiem@gmail.com"
+    }
+  ]
+}

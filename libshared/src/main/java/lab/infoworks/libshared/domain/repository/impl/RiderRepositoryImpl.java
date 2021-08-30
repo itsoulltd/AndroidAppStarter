@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import com.it.soul.lab.data.base.DataSource;
 import com.it.soul.lab.data.base.DataStorage;
 
+import java.lang.ref.SoftReference;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -21,9 +22,11 @@ import lab.infoworks.libshared.domain.repository.definition.RiderRepository;
 public class RiderRepositoryImpl implements RiderRepository {
 
     private final DataSource<Integer, Rider> dataSource;
+    private SoftReference<Context> contextRef;
 
     public RiderRepositoryImpl(Context context) {
         this.dataSource = new RiderDataSource(context);
+        this.contextRef = new SoftReference<>(context);
     }
 
     @Override @RequiresApi(Build.VERSION_CODES.N)
@@ -42,7 +45,7 @@ public class RiderRepositoryImpl implements RiderRepository {
 
     @Override
     public void addSampleData() {
-        for (Rider rider : SampleData.getRiders()) {
+        for (Rider rider : SampleData.getRidersFrom(contextRef.get())) {
             dataSource.add(rider);
         }
         ((DataStorage)dataSource).save(true);
