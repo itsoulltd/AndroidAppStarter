@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import com.infoworks.lab.rest.models.Response;
 
 @Entity(tableName = "rider", ignoredColumns = {"status", "error", "message", "payload", "event", "classType", "_isAutoIncremented"})
-public class Rider extends Response {
+public class Rider extends ResponseExt {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
@@ -24,6 +24,11 @@ public class Rider extends Response {
     public Rider(String name, String geoHash) {
         this.name = name;
         this.geoHash = geoHash;
+    }
+
+    @Ignore
+    public Rider(String json) {
+        super(json);
     }
 
     public Rider(Integer id, String name, String geoHash, Integer age, String gender, String email) {
