@@ -31,7 +31,7 @@ public class AppViewModel extends AndroidViewModel {
     }
 
     public void verifyUser() {
-        if(riderRepository.isEmpty()) riderRepository.addSampleData();
+        if(riderRepository.isEmpty()) riderRepository.addSampleData(getApplication());
         userStatusLiveData.postValue(new VerificationResult(true));
     }
 
