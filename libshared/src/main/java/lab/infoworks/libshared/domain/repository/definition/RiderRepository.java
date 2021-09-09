@@ -9,6 +9,7 @@ import lab.infoworks.libshared.domain.model.Rider;
 
 public interface RiderRepository {
     void findRiders(Consumer<List<Rider>> consumer);
-    void addSampleData(Context context);
+    void update(Rider rider);
     boolean isEmpty();
+    void addSampleData(Context context);
 }

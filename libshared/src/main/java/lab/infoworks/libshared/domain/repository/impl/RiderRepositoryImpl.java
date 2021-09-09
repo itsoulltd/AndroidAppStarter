@@ -41,15 +41,23 @@ public class RiderRepositoryImpl implements RiderRepository {
     }
 
     @Override
-    public void addSampleData(Context context) {
-        for (Rider rider : SampleData.getRidersFrom(context)) {
-            dataSource.add(rider);
-        }
+    public boolean isEmpty() {
+        return dataSource.size() <= 0;
+    }
+
+    @Override
+    public void update(Rider updated) {
+        dataSource.replace(updated.getId(), updated);
         ((DataStorage)dataSource).save(true);
     }
 
     @Override
-    public boolean isEmpty() {
-        return dataSource.size() <= 0;
+    public void addSampleData(Context context) {
+        int idx = 0;
+        for (Rider rider : SampleData.getRidersFrom(context)) {
+            rider.setId(++idx);
+            dataSource.put(idx, rider);
+        }
+        ((DataStorage)dataSource).save(true);
     }
 }
