@@ -1,9 +1,13 @@
 package lab.infoworks.libui.activities;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.it.soul.lab.sql.query.models.Property;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,22 @@ public class NavStack {
 
     public static NavStack create(AppCompatActivity activity, int containerId){
         return new NavStack(containerId, activity.getSupportFragmentManager(), activity.getSupportActionBar());
+    }
+
+    public static Bundle createBundle(Property...properties){
+        Bundle args = new Bundle();
+        if (properties.length > 0){
+            for (Property prop : properties) {
+                if (prop.getValue() == null) continue;
+                args.putString(prop.getKey(), prop.getValue().toString());
+            }
+        }
+        return args;
+    }
+
+    public static Fragment bindArgs(Fragment fragment, Property...properties){
+        fragment.setArguments(createBundle(properties));
+        return fragment;
     }
 
     private FragmentManager manager;
@@ -47,7 +67,7 @@ public class NavStack {
     }
 
 
-    public void popNavStack(){
+    public void popNavStack(Property...properties){
         if (navStack.size() <= 1) return;
         Fragment fragment = navStack.remove(0);
         getSupportFragmentManager()
@@ -57,6 +77,8 @@ public class NavStack {
         //pop-next and push to fragment-maager
         fragment = navStack.remove(0);
         String tag = tagStack.remove(0);
+        //
+        fragment.setArguments(createBundle(properties));
         pushNavStack(fragment, tag);
         //handle back-arrow
         if (isOnTop()){
