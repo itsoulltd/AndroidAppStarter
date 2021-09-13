@@ -51,8 +51,19 @@ public class NavStack {
     private List<Fragment> navStack = new ArrayList<>();
     private List<String> tagStack = new ArrayList<>();
 
+    public void initStackWithFragment(String tag){
+        Fragment defaultFragment = getSupportFragmentManager().findFragmentByTag(tag);
+        pushNavStack(defaultFragment, tag);
+    }
+
+    public void initStackWithFragment(int id){
+        Fragment defaultFragment = getSupportFragmentManager().findFragmentById(id);
+        pushNavStack(defaultFragment, id + "");
+    }
+
     public void pushNavStack(Fragment fragment, String tag) {
         if (tag == null || tag.isEmpty()) return;
+        if (fragment == null) return;
         navStack.add(0, fragment);
         tagStack.add(0, tag);
         boolean isAdded = fragment.isAdded();
