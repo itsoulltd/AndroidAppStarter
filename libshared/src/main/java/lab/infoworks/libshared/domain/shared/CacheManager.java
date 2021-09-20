@@ -6,7 +6,9 @@ import com.it.soul.lab.sql.entity.Entity;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import lab.infoworks.libshared.domain.datasource.CMDataSource;
 
@@ -55,18 +57,18 @@ public class CacheManager<E extends Entity> {
 
     ////////////////////////////////
 
-    private CMDataSource<Integer, E> cacheSources;
+    private CacheDataSource<E> cacheSources;
 
-    private CMDataSource<Integer, E> getCache() {
+    private CacheDataSource<E> getCache() {
         if (cacheSources == null){
-            cacheSources = new CMDataSource<>();
+            cacheSources = new CacheDataSource<>();
         }
         return cacheSources;
     }
 
     public List<E> fetch(int offset, int page) {
         if (page > getCache().size() || page <= 0) page = getCache().size();
-        return Arrays.asList(getCache().readSync(offset, page));
+        return getCache().readSyncAsList(offset, page);
     }
 
     public CacheManager clear(){
@@ -84,5 +86,17 @@ public class CacheManager<E extends Entity> {
     }
 
     /////////////////////////////////
+
+    private static class CacheDataSource<E> extends CMDataSource<Integer, E> {
+
+        private final LinkedHashMap<Integer, E> inMem = new LinkedHashMap(10, 0.75f, true);
+
+        @Override
+        protected Map<Integer, E> getInMemoryStorage() {
+            return inMem;
+        }
+
+        //TODO:
+    }
 
 }
