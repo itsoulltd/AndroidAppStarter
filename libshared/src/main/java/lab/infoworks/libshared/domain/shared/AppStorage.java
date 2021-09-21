@@ -18,12 +18,12 @@ public class AppStorage {
         return new AppStorage(activity);
     }
 
+    private static final String PREFERENCES_FILE_NAME = AppStorage.class.getSimpleName() + "Preferences";
+    private SharedPreferences currentPreference;
+
     public AppStorage(@NotNull Context application) {
         currentPreference = application.getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
     }
-
-    private static final String PREFERENCES_FILE_NAME = AppStorage.class.getSimpleName() + "Preferences";
-    private SharedPreferences currentPreference;
 
     public void put(String key, Object value) {
 
