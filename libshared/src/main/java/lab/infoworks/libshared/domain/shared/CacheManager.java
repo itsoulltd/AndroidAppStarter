@@ -87,6 +87,11 @@ public class CacheManager<E extends Entity> {
 
     /////////////////////////////////
 
+    /**
+     * Eviction Policy: Least Frequently Used.
+     * Concurrency: Multiple Thread Should Perform operation on the container.
+     * @param <E>
+     */
     private static class CacheDataSource<E> extends CMDataSource<Integer, E> {
 
         private final LinkedHashMap<Integer, E> inMem = new LinkedHashMap(10, 0.75f, true);
