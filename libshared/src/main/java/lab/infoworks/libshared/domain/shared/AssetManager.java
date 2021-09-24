@@ -9,9 +9,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoworks.lab.rest.models.Message;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,40 +22,19 @@ import java.util.Map;
 public class AssetManager {
 
     public static List<Map<String, Object>> readJsonObject(Context context, String filename){
-        return readJsonObject(readJsonFile(context, filename));
+        return readJsonObject(readAsJsonString(context, filename));
     }
 
-    public static String readJsonFile(Context context, String filename){
+    public static String readAsJsonString(Context context, String filename){
         String json = "";
-        InputStream is = null;
-        try {
-            is = context.getAssets().open(filename);
-            int size = is.available();
-            byte[] buffer = new byte[size];
+        try(InputStream is = context.getAssets().open(filename)) {
+            byte[] buffer = new byte[is.available()];
             is.read(buffer);
-            is.close();
             json = new String(buffer, "UTF-8");
         } catch (IOException ex) {
             ex.printStackTrace();
-        }finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {}
-            }
         }
         return json;
-    }
-
-    public static byte[] readAsBytes(InputStream ios) {
-        if (ios == null) return new byte[0];
-        try {
-            byte[] bites = new byte[ios.available()];
-            ios.read(bites);
-            return bites;
-        } catch (IOException e) {
-        }
-        return new byte[0];
     }
 
     public static List<Map<String, Object>> readJsonObject(String json){
@@ -84,6 +65,39 @@ public class AssetManager {
             } catch (IOException e) {}
         }
         return null;
+    }
+
+    public static String readAsString(Context context, String filename){
+        StringBuffer buffer = new StringBuffer();
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                buffer.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buffer.toString();
+    }
+
+    private static byte[] readAsBytes(Context context, String filename){
+        try(InputStream is = context.getAssets().open(filename)) {
+            return readAsBytes(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
+    }
+
+    public static byte[] readAsBytes(InputStream ios) {
+        if (ios == null) return new byte[0];
+        try {
+            byte[] bites = new byte[ios.available()];
+            ios.read(bites);
+            return bites;
+        } catch (IOException e) {
+        }
+        return new byte[0];
     }
 
     public static byte[] readImageAsBytes(Bitmap img, Bitmap.CompressFormat format, int quality) throws IOException {
