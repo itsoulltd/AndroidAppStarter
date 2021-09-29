@@ -154,12 +154,12 @@ public class MediaStorage {
             if (predicate != null){
                 Expression[] expressions = predicate.resolveExpressions();
                 if (expressions != null && expressions.length > 0){
-                    List<String> exps = new ArrayList<>();
+                    List<String> res = new ArrayList<>();
                     for (Expression exp : expressions) {
                         if (exp.getValueProperty().getValue() == null) continue;
-                        exps.add(exp.getValueProperty().getValue().toString());
+                        res.add(exp.getValueProperty().getValue().toString());
                     }
-                    return exps.toArray(new String[0]);
+                    return res.toArray(new String[0]);
                 }
             }
             return new String[0];
@@ -170,8 +170,6 @@ public class MediaStorage {
                 Expression[] expressions = predicate.resolveExpressions();
                 if (expressions != null && expressions.length > 0){
                     Expression expression = expressions[0];
-                    /*String pro = expression.getProperty().replaceAll(" ", "");
-                    pro = pro + " " + expression.getType().toString() + " " + "?";*/
                     String pro = expression.interpret();
                     return pro;
                 }
