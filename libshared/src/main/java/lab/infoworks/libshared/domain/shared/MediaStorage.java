@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import androidx.annotation.RequiresApi;
+
 import com.it.soul.lab.sql.entity.Entity;
 import com.it.soul.lab.sql.query.models.Expression;
 import com.it.soul.lab.sql.query.models.Predicate;
@@ -130,12 +132,14 @@ public class MediaStorage {
             return items;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public <T extends MediaStoreItem> Fetch onComplete(Consumer<List<T>> consumer) {
             this.onComplete = consumer;
             return this;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public <T extends MediaStoreItem> void fetch(Executor executor, MediaStoreItemMapper<T> mapper) {
             if (executor != null && onComplete != null){
