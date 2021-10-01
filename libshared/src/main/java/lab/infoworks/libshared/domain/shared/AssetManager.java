@@ -67,6 +67,17 @@ public class AssetManager {
         return null;
     }
 
+    public static <T> T readJsonObject(String json, Class<T> aClass){
+        if (Message.isValidJson(json)){
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                T res = objectMapper.readValue(json, aClass);
+                return res;
+            } catch (IOException e) {}
+        }
+        return null;
+    }
+
     public static String readAsString(Context context, String filename){
         StringBuffer buffer = new StringBuffer();
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)))){
