@@ -115,6 +115,7 @@ public class MediaStorage {
          */
         @Override
         public <T extends MediaStoreItem> List<T> fetch(MediaStoreItemMapper<T> mapper) {
+            if (from == null) return new ArrayList<>();
             AtomicInteger incrementer = new AtomicInteger(0);
             List<T> items = new ArrayList<>();
             try(Cursor cursor = appContext.getContentResolver().query(
@@ -162,7 +163,7 @@ public class MediaStorage {
                     return res.toArray(new String[0]);
                 }
             }
-            return new String[0];
+            return null;
         }
 
         private String getSelection() {
@@ -178,6 +179,7 @@ public class MediaStorage {
         }
 
         private String getOrders() {
+            if (orderColumn == null || orderColumn.isEmpty()) return null;
             return orderColumn.replaceAll(" ", "") + " " + order.name();
         }
 
