@@ -22,6 +22,7 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 
 public class DownloadTracker {
@@ -100,8 +101,16 @@ public class DownloadTracker {
         }
 
         @Override
-        public void checkStatus(long ref, Consumer<TrackItemStatus> consumer) {
+        public void checkStatus(long ref, Executor executor, Consumer<TrackItemStatus> consumer) {
             if (consumer == null) return;
+            executor.execute(() -> {
+                TrackItemStatus status = checkStatus(ref);
+                consumer.accept(status);
+            });
+        }
+
+        @Override
+        public TrackItemStatus checkStatus(long ref) {
             TrackItem fromSource = sourceMap.get(ref);
             if (fromSource != null){
                 DownloadManager.Query query = new DownloadManager.Query();
@@ -116,9 +125,10 @@ public class DownloadTracker {
                     int reason = cursor.getInt(columnReason);
                     //
                     TrackItemStatus itemStatus = new TrackItemStatus(status, reason);
-                    consumer.accept(itemStatus);
+                    return itemStatus;
                 }
             }
+            return new TrackItemStatus(DownloadManager.STATUS_SUCCESSFUL);
         }
 
         @Override
@@ -191,7 +201,8 @@ public class DownloadTracker {
 
     public interface Tracker {
         long enqueue(Consumer<FileInputStream> consumer);
-        void checkStatus(long ref, Consumer<TrackItemStatus> consumer);
+        void checkStatus(long ref, Executor executor, Consumer<TrackItemStatus> consumer);
+        TrackItemStatus checkStatus(long ref);
         String cancel(long ref);
     }
 

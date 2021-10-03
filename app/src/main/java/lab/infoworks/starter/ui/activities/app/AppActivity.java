@@ -21,6 +21,7 @@ import lab.infoworks.libshared.domain.shared.AssetManager;
 import lab.infoworks.libshared.notifications.SystemNotificationTray;
 import lab.infoworks.libui.activities.BaseNetworkActivity;
 import lab.infoworks.starter.R;
+import lab.infoworks.starter.ui.app.StarterApp;
 
 
 public class AppActivity extends BaseNetworkActivity {
@@ -111,10 +112,14 @@ public class AppActivity extends BaseNetworkActivity {
 
     @OnClick(R.id.statusDownloadButton)
     public void updateStatusDownload(){
-        new DownloadTracker.Builder(this)
-                .checkStatus(dRef, (status) -> {
-                    statusTextView.setText(status.getStatus());
-                });
+        /*new DownloadTracker
+                .Builder(this)
+                .checkStatus(dRef, StarterApp.executor, (status) -> {
+                    runOnUiThread(() -> statusTextView.setText(status.getStatus()));
+                });*/
+        //Other sample:
+        DownloadTracker.TrackItemStatus status = new DownloadTracker.Builder(this).checkStatus(dRef);
+        statusTextView.setText(status.getStatus());
     }
 
     @OnClick(R.id.showDownloadsButton)
