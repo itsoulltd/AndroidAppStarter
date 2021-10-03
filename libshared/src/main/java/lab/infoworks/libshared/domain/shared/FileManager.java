@@ -16,21 +16,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-public class FileManager implements AutoCloseable{
+public class FileManager {
 
     public static final String LOG_TAG = FileManager.class.getSimpleName();
-
-    @Override
-    public void close() throws Exception {
-        if (executor != null && !executor.isShutdown()){
-            executor.shutdown();
-            executor = null;
-        }
-    }
 
     public enum StorageMode{
         INTERNAL, EXTERNAL;
@@ -38,14 +31,6 @@ public class FileManager implements AutoCloseable{
 
     private Context appContext;
     private StorageMode mode = StorageMode.INTERNAL;
-    private ExecutorService executor;
-
-    public ExecutorService getExecutor() {
-        if (executor == null){
-            executor = Executors.newSingleThreadExecutor();
-        }
-        return executor;
-    }
 
     public Context getAppContext() {
         return appContext;
@@ -114,8 +99,8 @@ public class FileManager implements AutoCloseable{
         }
     }
 
-    public void asyncSaveBitmap(Bitmap bitmap, File folder, String fileName, int quality) {
-        getExecutor().submit(() -> {
+    public void saveBitmap(Executor executor, Bitmap bitmap, File folder, String fileName, int quality) {
+        executor.execute(() -> {
             try {
                 saveBitmap(bitmap, folder, fileName, quality);
             } catch (IOException e) { Log.d(LOG_TAG, "availableBytes: " + e.getMessage()); }
@@ -133,8 +118,8 @@ public class FileManager implements AutoCloseable{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void readBitmap(File folder, String fileName, Consumer<Bitmap> consumer) {
-        getExecutor().submit(() -> {
+    public void readBitmap(Executor executor, File folder, String fileName, Consumer<Bitmap> consumer) {
+        executor.execute(() -> {
             try {
                 if (consumer != null){
                     Bitmap bitmap = readBitmap(folder, fileName);
