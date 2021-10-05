@@ -106,7 +106,7 @@ public class AppActivity extends BaseNetworkActivity {
 
     @OnClick(R.id.stopDownloadButton)
     public void stopDownload(){
-        String status = new DownloadTracker.Builder(this).cancel(dRef);
+        String status = new DownloadTracker.Builder(this).cancel(dRef).getStatus();
         statusTextView.setText(status);
     }
 
