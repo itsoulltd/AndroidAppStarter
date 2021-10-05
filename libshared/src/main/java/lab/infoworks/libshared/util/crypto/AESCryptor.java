@@ -17,10 +17,24 @@ public class AESCryptor implements Cryptor{
     private Cipher decipher;
     private MessageDigest sha;
 
+    private final ShaKey shaKey;
+    private final AESMode aesMode;
+    private final SecretKeyAlgo secretKeyAlgo;
+
+    public AESCryptor() {
+        this(ShaKey.Sha_1, AESMode.AES_ECB_PKCS5Padding, SecretKeyAlgo.AES);
+    }
+
+    public AESCryptor(ShaKey shaKey, AESMode aesMode, SecretKeyAlgo secretKeyAlgo) {
+        this.shaKey = shaKey;
+        this.aesMode = aesMode;
+        this.secretKeyAlgo = secretKeyAlgo;
+    }
+
     private Cipher getCipher(String secret) throws Exception{
         if (cipher == null){
             SecretKeySpec secretKey = getKeySpace(secret);
-            cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); //AES/CBC/PKCS7PADDING
+            cipher = Cipher.getInstance(aesMode.value());
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         }
         return cipher;
@@ -29,17 +43,10 @@ public class AESCryptor implements Cryptor{
     private Cipher getDecipher(String secret) throws Exception{
         if (decipher == null){
             SecretKeySpec secretKey = getKeySpace(secret);
-            decipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); //AES/CBC/PKCS7PADDING
+            decipher = Cipher.getInstance(aesMode.value());
             decipher.init(Cipher.DECRYPT_MODE, secretKey);
         }
         return decipher;
-    }
-
-    public MessageDigest getSha() throws NoSuchAlgorithmException {
-        if (sha == null){
-            sha = MessageDigest.getInstance("SHA-1"); //SHA-256
-        }
-        return sha;
     }
 
     @Override
@@ -50,10 +57,17 @@ public class AESCryptor implements Cryptor{
             throw new UnsupportedEncodingException("SecretKey is null or empty!");
         //
         byte[] key = mykey.getBytes("UTF-8");
-        key = getSha().digest(key);
+        key = getSha(shaKey).digest(key);
         key = Arrays.copyOf(key, 16);
-        SecretKeySpec secretKey = new SecretKeySpec(key, SecretKeyAlgo.AES.name());
+        SecretKeySpec secretKey = new SecretKeySpec(key, secretKeyAlgo.name());
         return secretKey;
+    }
+
+    private MessageDigest getSha(ShaKey shaKey) throws NoSuchAlgorithmException {
+        if (sha == null){
+            sha = MessageDigest.getInstance(shaKey.value());
+        }
+        return sha;
     }
 
     @Override
