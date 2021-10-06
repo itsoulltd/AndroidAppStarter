@@ -132,13 +132,13 @@ public class DownloadTracker {
         }
 
         @Override
-        public String cancel(long ref) {
+        public TrackItemStatus cancel(long ref) {
             TrackItem fromSource = sourceMap.remove(ref);
             if (fromSource != null){
                 int status = manager.remove(fromSource.getRef());
-                return new TrackItemStatus(status).getStatus();
+                return new TrackItemStatus(status);
             }
-            return new TrackItemStatus(DownloadManager.STATUS_SUCCESSFUL).getStatus();
+            return new TrackItemStatus(DownloadManager.STATUS_SUCCESSFUL);
         }
 
         /**
@@ -203,7 +203,7 @@ public class DownloadTracker {
         long enqueue(Consumer<FileInputStream> consumer);
         void checkStatus(long ref, Executor executor, Consumer<TrackItemStatus> consumer);
         TrackItemStatus checkStatus(long ref);
-        String cancel(long ref);
+        TrackItemStatus cancel(long ref);
     }
 
     public interface DownloadRequest extends Tracker{
