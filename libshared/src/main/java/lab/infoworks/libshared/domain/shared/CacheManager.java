@@ -5,7 +5,6 @@ import com.infoworks.lab.rest.models.Message;
 import com.it.soul.lab.sql.entity.Entity;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,16 +19,10 @@ public class CacheManager<E extends Entity> {
         this.keyPrefix = keyPrefix;
     }
 
-    protected boolean isValidJson(String json){
-        if (json == null || json.isEmpty()) return false;
-        if (json.startsWith("[") || json.startsWith("{")) return true;
-        return false;
-    }
-
     public void restore(AppStorage manager, TypeReference type){
         if (manager == null) return;
         String dhs = manager.stringValue(keyPrefix);
-        if (isValidJson(dhs)){
+        if (Message.isValidJson(dhs)){
             try {
                 List<E> houses = (List<E>) Message.unmarshal(type, dhs);
                 clear().save(houses);
