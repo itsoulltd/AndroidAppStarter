@@ -5,11 +5,12 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -52,7 +53,10 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     //OkHttp
-    implementation("com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion")
+    //implementation("com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion")
+    implementation ("com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"){
+        force = true //API 19 support
+    }
     testImplementation("com.squareup.okhttp3:mockwebserver:$rootProject.okhttpVersion")
     //Retrofit-2
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
