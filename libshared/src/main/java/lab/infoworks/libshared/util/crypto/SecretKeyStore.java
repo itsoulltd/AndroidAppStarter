@@ -43,6 +43,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.security.auth.x500.X500Principal;
 
+import lab.infoworks.libshared.BuildConfig;
 import lab.infoworks.libshared.domain.shared.AppStorage;
 
 public class SecretKeyStore implements iSecretKeyStore{
@@ -84,12 +85,14 @@ public class SecretKeyStore implements iSecretKeyStore{
     private AppStorage appStorage;
     private Cryptor cryptor;
     private final String keyAlgorithm;
+    private final boolean isDebugMode;
 
     private SecretKeyStore(Context context, String keyAlgorithm) {
         this.cryptor = Cryptor.create();
         this.weakContext = new WeakReference<>(context);
         this.appStorage = new AppStorage(context);
         this.keyAlgorithm = keyAlgorithm;
+        this.isDebugMode = BuildConfig.DEBUG;
     }
 
     private KeyStore getKeyStore() throws RuntimeException {
@@ -137,7 +140,7 @@ public class SecretKeyStore implements iSecretKeyStore{
             //Now not exist:
             Key pbKey = createSecretKey(alias, getContext());
             if (pbKey == null) {
-                Log.d(TAG, "storeSecret: " + "Already exist.");
+                if(isDebugMode) Log.d(TAG, "storeSecret: " + "Already exist.");
                 //
                 KeyStore.Entry entry = getKeyStore().getEntry(alias, null);
                 if (entry instanceof KeyStore.PrivateKeyEntry){
@@ -166,7 +169,7 @@ public class SecretKeyStore implements iSecretKeyStore{
             //
             byte[] encryptedBytes = cipher.doFinal(secret.getBytes(StandardCharsets.UTF_8));
             String encrypted = Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
-            Log.d("StarterApp", "encryptUsingAesSecretKey: " + encrypted);
+            if(isDebugMode) Log.d("StarterApp", "encryptUsingAesSecretKey: " + encrypted);
             return encrypted;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException
                 | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
@@ -187,7 +190,7 @@ public class SecretKeyStore implements iSecretKeyStore{
             //
             byte [] encryptedBytes = baos.toByteArray();
             String encrypted = Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
-            Log.d("StarterApp", "encryptUsingAesSecretKey: " + encrypted);
+            if(isDebugMode) Log.d("StarterApp", "encryptUsingAesSecretKey: " + encrypted);
             return encrypted;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException
                 | IOException | InvalidKeyException e) {
@@ -235,7 +238,7 @@ public class SecretKeyStore implements iSecretKeyStore{
             Cipher cipher = Cipher.getInstance(AESMode.AES_CBC_PKCS7Padding.value());
             cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
             //
-            Log.d("StarterApp", "decryptUsingAesSecretKey: " + encrypted);
+            if(isDebugMode) Log.d("StarterApp", "decryptUsingAesSecretKey: " + encrypted);
             byte[] encryptedBytes = Base64.decode(encrypted.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT);
             byte[] readBytes = cipher.doFinal(encryptedBytes);
             //
@@ -253,7 +256,7 @@ public class SecretKeyStore implements iSecretKeyStore{
             Cipher cipher = SecretKeyStore.cipherForRSA();
             cipher.init(Cipher.DECRYPT_MODE, key);
             //
-            Log.d("StarterApp", "decryptUsingAesSecretKey: " + encrypted);
+            if(isDebugMode) Log.d("StarterApp", "decryptUsingAesSecretKey: " + encrypted);
             byte[] encryptedBytes = Base64.decode(encrypted, Base64.DEFAULT);
             CipherInputStream cis = new CipherInputStream(new ByteArrayInputStream(encryptedBytes), cipher);
             byte[] readBytes = IOUtils.readInputStreamFully(cis);
