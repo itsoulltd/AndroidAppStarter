@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.domain.remote;
+package lab.infoworks.libshared.domain.remote.interceptors;
 
 import java.io.IOException;
 
