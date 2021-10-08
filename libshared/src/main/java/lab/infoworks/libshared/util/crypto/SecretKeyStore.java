@@ -164,7 +164,7 @@ public class SecretKeyStore implements iSecretKeyStore{
 
     private String encryptUsingAesSecretKey(SecretKey pbKey, String secret) throws RuntimeException{
         try {
-            Cipher cipher = Cipher.getInstance(AESMode.AES_CBC_PKCS7Padding.value());
+            Cipher cipher = Cipher.getInstance(Transformation.AES_CBC_PKCS7Padding.value());
             cipher.init(Cipher.ENCRYPT_MODE, pbKey);
             //
             byte[] encryptedBytes = cipher.doFinal(secret.getBytes(StandardCharsets.UTF_8));
@@ -231,11 +231,11 @@ public class SecretKeyStore implements iSecretKeyStore{
 
     private String decryptUsingAesSecretKey(SecretKey key, String encrypted) throws RuntimeException {
         try {
-            Cipher decipher = Cipher.getInstance(AESMode.AES_CBC_PKCS7Padding.value());
+            Cipher decipher = Cipher.getInstance(Transformation.AES_CBC_PKCS7Padding.value());
             decipher.init(Cipher.ENCRYPT_MODE, key);
             IvParameterSpec ivParameterSpec = new IvParameterSpec(decipher.getIV());
             //
-            Cipher cipher = Cipher.getInstance(AESMode.AES_CBC_PKCS7Padding.value());
+            Cipher cipher = Cipher.getInstance(Transformation.AES_CBC_PKCS7Padding.value());
             cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
             //
             if(isDebugMode) Log.d("StarterApp", "decryptUsingAesSecretKey: " + encrypted);

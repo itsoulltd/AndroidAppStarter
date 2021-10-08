@@ -1,23 +1,24 @@
 package lab.infoworks.libshared.util.crypto;
 
-public enum SecretKeyAlgo {
+public enum CryptoAlgorithm {
 
     AES("AES",256),
     DES("DES", 56),
     DESede("DESede", 112),
-    TripleDES("TripleDES", 168);
+    TripleDES("TripleDES", 168),
+    RSA("RSA", 128);
 
     private String description;
     private int length;
 
-    SecretKeyAlgo(String description, int length) {
+    CryptoAlgorithm(String description, int length) {
         this.description = description;
         this.length = length;
     }
 
     @Override
     public String toString() {
-        return "SecretKeyAlgo{" +
+        return "CryptoAlgorithm{" +
                 "description='" + description + '\'' +
                 ", length=" + length +
                 '}';
