@@ -219,7 +219,7 @@ public class SecretKeyStore implements iSecretKeyStore{
             //
             byte [] encryptedBytes = baos.toByteArray();
             String encrypted = Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
-            if(isDebugMode) Log.d("StarterApp", "encryptUsingAesSecretKey: " + encrypted);
+            if(isDebugMode) Log.d("StarterApp", "encryptUsingRsaPublicKey: " + encrypted);
             return encrypted;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException
                 | IOException | InvalidKeyException e) {
@@ -230,11 +230,11 @@ public class SecretKeyStore implements iSecretKeyStore{
     public static Cipher cipherForRSA() throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) { // below android m
             // error in android 6: InvalidKeyException: Need RSA private or public key
-            return Cipher.getInstance("RSA/ECB/PKCS1Padding", "AndroidOpenSSL");
+            return Cipher.getInstance(Transformation.RSA_ECB_PKCS1Padding.value(), "AndroidOpenSSL");
         }
         else { // android m and above
             // error in android 5: NoSuchProviderException: Provider not available: AndroidKeyStoreBCWorkaround
-            return Cipher.getInstance("RSA/ECB/PKCS1Padding", "AndroidKeyStoreBCWorkaround");
+            return Cipher.getInstance(Transformation.RSA_ECB_PKCS1Padding.value(), "AndroidKeyStoreBCWorkaround");
         }
     }
 
@@ -285,7 +285,7 @@ public class SecretKeyStore implements iSecretKeyStore{
             Cipher cipher = SecretKeyStore.cipherForRSA();
             cipher.init(Cipher.DECRYPT_MODE, key);
             //
-            if(isDebugMode) Log.d("StarterApp", "decryptUsingAesSecretKey: " + encrypted);
+            if(isDebugMode) Log.d("StarterApp", "decryptUsingRsaPrivateKey: " + encrypted);
             byte[] encryptedBytes = Base64.decode(encrypted, Base64.DEFAULT);
             CipherInputStream cis = new CipherInputStream(new ByteArrayInputStream(encryptedBytes), cipher);
             byte[] readBytes = IOUtils.readInputStreamFully(cis);
