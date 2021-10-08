@@ -48,20 +48,22 @@ import lab.infoworks.libshared.domain.shared.AppStorage;
 
 public class SecretKeyStore implements iSecretKeyStore{
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static final String ANDROID_KEY_STORE = "AndroidKeyStore";
     public static final String TAG = SecretKeyStore.class.getSimpleName();
     private static volatile SecretKeyStore instance;
     private static final ReentrantLock REENTRANT_LOCK = new ReentrantLock();
 
-    public static SecretKeyStore init(Application context, String keyAlgorithm){
+    public static SecretKeyStore init(Application context, CryptoAlgorithm keyAlgorithm, Cryptor cryptor){
         if (instance == null){
             REENTRANT_LOCK.lock();
             try {
                 if (instance == null){
-                    keyAlgorithm = (keyAlgorithm != null && !keyAlgorithm.isEmpty())
+                    keyAlgorithm = (keyAlgorithm != null)
                             ? keyAlgorithm
-                            : KeyProperties.KEY_ALGORITHM_RSA;
-                    instance = new SecretKeyStore(context, keyAlgorithm);
+                            : CryptoAlgorithm.RSA;
+                    instance = new SecretKeyStore(context, keyAlgorithm, cryptor);
                 }
             } catch (Exception e){ }
             finally {
@@ -71,14 +73,20 @@ public class SecretKeyStore implements iSecretKeyStore{
         return instance;
     }
 
+    public static SecretKeyStore init(Application context, Cryptor cryptor){
+        return init(context, CryptoAlgorithm.RSA, cryptor);
+    }
+
     public static SecretKeyStore init(Application context){
-        return init(context, KeyProperties.KEY_ALGORITHM_RSA);
+        return init(context, CryptoAlgorithm.RSA, Cryptor.create());
     }
 
     public static SecretKeyStore getInstance() throws RuntimeException{
         if (instance == null) throw new RuntimeException("Not instantiated!");
         return instance;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private KeyStore keyStore;
     private WeakReference<Context> weakContext;
@@ -87,12 +95,33 @@ public class SecretKeyStore implements iSecretKeyStore{
     private final String keyAlgorithm;
     private final boolean isDebugMode;
 
-    private SecretKeyStore(Context context, String keyAlgorithm) {
-        this.cryptor = Cryptor.create();
+    public SecretKeyStore(Context context, CryptoAlgorithm keyAlgorithm, Cryptor cryptor) {
+        this.cryptor = cryptor;
         this.weakContext = new WeakReference<>(context);
         this.appStorage = new AppStorage(context);
-        this.keyAlgorithm = keyAlgorithm;
+        this.keyAlgorithm = convertAlgorithm(keyAlgorithm);
         this.isDebugMode = BuildConfig.DEBUG;
+    }
+
+    public SecretKeyStore(Context context, CryptoAlgorithm keyAlgorithm){
+        this(context, keyAlgorithm, Cryptor.create());
+    }
+
+    public SecretKeyStore(Context context){
+        this(context, CryptoAlgorithm.RSA);
+    }
+
+    private String convertAlgorithm(CryptoAlgorithm algorithm){
+        switch (algorithm){
+            case AES:
+                return KeyProperties.KEY_ALGORITHM_AES;
+            case DESede:
+            case TripleDES:
+            case DES:
+                return KeyProperties.KEY_ALGORITHM_3DES;
+            default:
+                return KeyProperties.KEY_ALGORITHM_RSA;
+        }
     }
 
     private KeyStore getKeyStore() throws RuntimeException {
