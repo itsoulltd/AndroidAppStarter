@@ -77,6 +77,10 @@ public class SecretKeyStore implements iSecretKeyStore{
         return init(context, CryptoAlgorithm.RSA, cryptor);
     }
 
+    public static SecretKeyStore init(Application context, CryptoAlgorithm keyAlgorithm){
+        return init(context, keyAlgorithm, Cryptor.create());
+    }
+
     public static SecretKeyStore init(Application context){
         return init(context, CryptoAlgorithm.RSA, Cryptor.create());
     }
