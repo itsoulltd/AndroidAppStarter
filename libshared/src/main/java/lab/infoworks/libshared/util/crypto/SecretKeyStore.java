@@ -116,16 +116,24 @@ public class SecretKeyStore implements iSecretKeyStore{
     }
 
     private String convertAlgorithm(CryptoAlgorithm algorithm){
+        String _keyAlgorithm = "";
         switch (algorithm){
             case AES:
-                return KeyProperties.KEY_ALGORITHM_AES;
+                _keyAlgorithm = KeyProperties.KEY_ALGORITHM_AES;
+                break;
             case DESede:
             case TripleDES:
             case DES:
-                return KeyProperties.KEY_ALGORITHM_3DES;
+                _keyAlgorithm = KeyProperties.KEY_ALGORITHM_3DES;
+                break;
             default:
-                return KeyProperties.KEY_ALGORITHM_RSA;
+                _keyAlgorithm = KeyProperties.KEY_ALGORITHM_RSA;
         }
+        //If the android os version is lower than API-Level-23, then key-algorithm must be RSA:
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M){
+            _keyAlgorithm = KeyProperties.KEY_ALGORITHM_RSA;
+        }
+        return _keyAlgorithm;
     }
 
     private KeyStore getKeyStore() throws RuntimeException {
