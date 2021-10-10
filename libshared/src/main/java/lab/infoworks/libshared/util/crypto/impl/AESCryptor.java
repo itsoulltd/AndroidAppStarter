@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.crypto;
+package lab.infoworks.libshared.util.crypto.impl;
 
 import android.util.Base64;
 
@@ -12,7 +12,12 @@ import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AESCryptor implements Cryptor{
+import lab.infoworks.libshared.util.crypto.definition.Cryptor;
+import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
+import lab.infoworks.libshared.util.crypto.models.HashKey;
+import lab.infoworks.libshared.util.crypto.models.Transformation;
+
+public class AESCryptor implements Cryptor {
 
     private Cipher cipher;
     private Cipher decipher;

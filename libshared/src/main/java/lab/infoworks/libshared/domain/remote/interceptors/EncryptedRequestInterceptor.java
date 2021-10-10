@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import lab.infoworks.libshared.domain.remote.interceptors.definition.EncryptInterceptor;
-import lab.infoworks.libshared.util.crypto.SecretKeyStore;
+import lab.infoworks.libshared.util.crypto.shared.SecretKeyStore;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;

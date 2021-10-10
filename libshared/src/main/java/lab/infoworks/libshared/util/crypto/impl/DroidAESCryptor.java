@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.crypto;
+package lab.infoworks.libshared.util.crypto.impl;
 
 import android.util.Base64;
 import android.util.Log;
@@ -20,8 +20,12 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 
 import lab.infoworks.libshared.BuildConfig;
+import lab.infoworks.libshared.util.crypto.definition.Cryptor;
+import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
+import lab.infoworks.libshared.util.crypto.models.HashKey;
+import lab.infoworks.libshared.util.crypto.models.Transformation;
 
-public class DroidAESCryptor implements Cryptor{
+public class DroidAESCryptor implements Cryptor {
 
     public static final String TAG = DroidAESCryptor.class.getSimpleName();
     private Cipher cipher;

@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.crypto;
+package lab.infoworks.libshared.util.crypto.impl;
 
 import android.util.Base64;
 import android.util.Log;
@@ -24,8 +24,12 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.NoSuchPaddingException;
 
 import lab.infoworks.libshared.BuildConfig;
+import lab.infoworks.libshared.util.crypto.definition.Cryptor;
+import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
+import lab.infoworks.libshared.util.crypto.models.HashKey;
+import lab.infoworks.libshared.util.crypto.models.Transformation;
 
-public class DroidRSACryptor implements Cryptor{
+public class DroidRSACryptor implements Cryptor {
 
     public static final String TAG = DroidRSACryptor.class.getSimpleName();
     private Cipher cipher;

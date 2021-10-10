@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.crypto;
+package lab.infoworks.libshared.util.crypto.shared;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,8 +9,12 @@ import java.security.UnrecoverableEntryException;
 import java.util.concurrent.locks.ReentrantLock;
 
 import lab.infoworks.libshared.domain.shared.AppStorage;
+import lab.infoworks.libshared.util.crypto.definition.Cryptor;
+import lab.infoworks.libshared.util.crypto.definition.iSecretKeyStore;
+import lab.infoworks.libshared.util.crypto.impl.AndroidKeyStore;
+import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
 
-public class SecretKeyStore implements iSecretKeyStore{
+public class SecretKeyStore implements iSecretKeyStore {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 

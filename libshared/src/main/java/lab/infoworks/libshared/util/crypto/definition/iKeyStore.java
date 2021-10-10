@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.crypto;
+package lab.infoworks.libshared.util.crypto.definition;
 
 import java.security.Key;
 import java.security.KeyStoreException;

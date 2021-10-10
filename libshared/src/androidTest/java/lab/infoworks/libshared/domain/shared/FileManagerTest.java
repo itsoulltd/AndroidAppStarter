@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.io.IOException;
 
-import lab.infoworks.libshared.util.crypto.Cryptor;
+import lab.infoworks.libshared.util.crypto.definition.Cryptor;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class FileManagerTest {

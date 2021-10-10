@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.crypto;
+package lab.infoworks.libshared.util.crypto.impl;
 
 import android.content.Context;
 import android.security.KeyPairGeneratorSpec;
@@ -25,8 +25,11 @@ import javax.crypto.SecretKey;
 import javax.security.auth.x500.X500Principal;
 
 import lab.infoworks.libshared.BuildConfig;
+import lab.infoworks.libshared.util.crypto.definition.Cryptor;
+import lab.infoworks.libshared.util.crypto.definition.iKeyStore;
+import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
 
-public class AndroidKeyStore implements iKeyStore{
+public class AndroidKeyStore implements iKeyStore {
 
     public static final String ANDROID_KEY_STORE = "AndroidKeyStore";
     public static final String TAG = AndroidKeyStore.class.getSimpleName();

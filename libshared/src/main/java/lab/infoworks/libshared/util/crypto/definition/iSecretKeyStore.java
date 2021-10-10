@@ -1,4 +1,4 @@
-package lab.infoworks.libshared.util.crypto;
+package lab.infoworks.libshared.util.crypto.definition;
 
 public interface iSecretKeyStore {
     Cryptor getCryptor();

@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import lab.infoworks.libshared.util.crypto.Cryptor;
+import lab.infoworks.libshared.util.crypto.definition.Cryptor;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class CryptorTest {

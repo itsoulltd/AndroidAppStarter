@@ -13,6 +13,9 @@ import org.junit.runner.RunWith;
 
 import java.util.UUID;
 
+import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
+import lab.infoworks.libshared.util.crypto.shared.SecretKeyStore;
+
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class SecretKeyStoreTest {
 
