@@ -53,6 +53,8 @@ public class AndroidKeyStore implements iKeyStore{
     private final String keyAlgorithm;
     private final boolean isDebugMode;
     private Calendar end;
+    private Cryptor aesCryptor;
+    private Cryptor rsaCryptor;
 
     public AndroidKeyStore(Context context, CryptoAlgorithm keyAlgorithm) {
         this.weakContext = new WeakReference<>(context);
@@ -65,6 +67,20 @@ public class AndroidKeyStore implements iKeyStore{
     public AndroidKeyStore(Context context, CryptoAlgorithm keyAlgorithm, Calendar end){
         this(context, keyAlgorithm);
         this.end = end;
+    }
+
+    private Cryptor getAesCryptor(){
+        if (aesCryptor == null){
+            aesCryptor = new DroidAESCryptor(getKeyStore());
+        }
+        return aesCryptor;
+    }
+
+    private Cryptor getRsaCryptor(){
+        if (rsaCryptor == null){
+            rsaCryptor = new DroidRSACryptor(getKeyStore());
+        }
+        return rsaCryptor;
     }
 
     private String convertAlgorithm(CryptoAlgorithm algorithm){
