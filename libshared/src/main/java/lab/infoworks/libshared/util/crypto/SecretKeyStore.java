@@ -2,9 +2,7 @@ package lab.infoworks.libshared.util.crypto;
 
 import android.app.Application;
 import android.content.Context;
-import android.security.keystore.KeyProperties;
 
-import java.lang.ref.WeakReference;
 import java.security.Key;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -15,7 +13,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.crypto.SecretKey;
 
-import lab.infoworks.libshared.BuildConfig;
 import lab.infoworks.libshared.domain.shared.AppStorage;
 
 public class SecretKeyStore implements iSecretKeyStore{
@@ -65,18 +62,12 @@ public class SecretKeyStore implements iSecretKeyStore{
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private AndroidKeyStore keyStore;
-    private WeakReference<Context> weakContext;
     private AppStorage appStorage;
     private Cryptor cryptor;
-    private final String keyAlgorithm;
-    private final boolean isDebugMode;
 
     public SecretKeyStore(Context context, CryptoAlgorithm keyAlgorithm, Cryptor cryptor) {
         this.cryptor = cryptor;
-        this.weakContext = new WeakReference<>(context);
         this.appStorage = new AppStorage(context);
-        this.keyAlgorithm = convertAlgorithm(keyAlgorithm);
-        this.isDebugMode = BuildConfig.DEBUG;
         this.keyStore = new AndroidKeyStore(context, keyAlgorithm);
     }
 
@@ -88,37 +79,12 @@ public class SecretKeyStore implements iSecretKeyStore{
         this(context, CryptoAlgorithm.RSA);
     }
 
-    private String convertAlgorithm(CryptoAlgorithm algorithm){
-        String _keyAlgorithm = "";
-        switch (algorithm){
-            case AES:
-                _keyAlgorithm = KeyProperties.KEY_ALGORITHM_AES;
-                break;
-            case DESede:
-            case TripleDES:
-            case DES:
-                _keyAlgorithm = KeyProperties.KEY_ALGORITHM_3DES;
-                break;
-            default:
-                _keyAlgorithm = KeyProperties.KEY_ALGORITHM_RSA;
-        }
-        //If the android os version is lower than API-Level-23, then key-algorithm must be RSA:
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M){
-            _keyAlgorithm = KeyProperties.KEY_ALGORITHM_RSA;
-        }
-        return _keyAlgorithm;
-    }
-
     private AndroidKeyStore getKeyStore(){
         return keyStore;
     }
 
     private AppStorage getAppStorage() {
         return appStorage;
-    }
-
-    private Context getContext() {
-        return weakContext.get();
     }
 
     @Override
