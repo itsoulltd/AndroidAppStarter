@@ -34,16 +34,17 @@ public class DroidAESCryptor implements Cryptor {
     private final boolean isDebugMode;
 
     private final Transformation transformation;
-    private final CryptoAlgorithm cryptoAlgorithm;
 
     public DroidAESCryptor(KeyStore keyStore) {
         this.keyStore = keyStore;
         this.transformation = Transformation.AES_CBC_PKCS7Padding;
-        this.cryptoAlgorithm = CryptoAlgorithm.AES;
         this.isDebugMode = BuildConfig.DEBUG;
     }
 
-    public CryptoAlgorithm getAlgorithm() {return cryptoAlgorithm;}
+    public CryptoAlgorithm getAlgorithm() {return null;}
+    public HashKey getHashKey() {
+        return null;
+    }
     public Transformation getTransformation() {return transformation;}
     private KeyStore getKeyStore(){return keyStore;}
 
@@ -59,7 +60,7 @@ public class DroidAESCryptor implements Cryptor {
 
     private Cipher getCipher(String alias) throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         if (this.cipher == null){
-            Cipher cipher = Cipher.getInstance(transformation.value());
+            Cipher cipher = Cipher.getInstance(getTransformation().value());
             cipher.init(Cipher.ENCRYPT_MODE, getKey(alias));
             this.cipher = cipher;
         }
@@ -83,7 +84,7 @@ public class DroidAESCryptor implements Cryptor {
     private Cipher getDecipher(String alias) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException {
         if (this.decipher == null){
             IvParameterSpec ivParameterSpec = new IvParameterSpec(getCipher(alias).getIV());
-            Cipher cipher = Cipher.getInstance(transformation.value());
+            Cipher cipher = Cipher.getInstance(getTransformation().value());
             cipher.init(Cipher.DECRYPT_MODE, getKey(alias), ivParameterSpec);
             this.decipher = cipher;
         }
@@ -104,11 +105,6 @@ public class DroidAESCryptor implements Cryptor {
                 | IllegalBlockSizeException | UnsupportedEncodingException e) {
             throw new RuntimeException(e.getMessage());
         }
-    }
-
-    @Override
-    public HashKey getHashKey() {
-        return null;
     }
 
 }

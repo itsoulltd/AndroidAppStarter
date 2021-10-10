@@ -39,27 +39,28 @@ public class DroidRSACryptor implements Cryptor {
     private final boolean isDebugMode;
 
     private final Transformation transformation;
-    private final CryptoAlgorithm cryptoAlgorithm;
 
     public DroidRSACryptor(KeyStore keyStore) {
         this.keyStore = keyStore;
         this.transformation = Transformation.RSA_ECB_PKCS1Padding;
-        this.cryptoAlgorithm = CryptoAlgorithm.RSA;
         this.isDebugMode = BuildConfig.DEBUG;
     }
 
-    public CryptoAlgorithm getAlgorithm() {return cryptoAlgorithm;}
+    public CryptoAlgorithm getAlgorithm() {return null;}
+    public HashKey getHashKey() {
+        return null;
+    }
     public Transformation getTransformation() {return transformation;}
     private KeyStore getKeyStore(){return keyStore;}
 
     private Cipher cipherForRSA() throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) { // below android m
             // error in android 6: InvalidKeyException: Need RSA private or public key
-            return Cipher.getInstance(transformation.value(), "AndroidOpenSSL");
+            return Cipher.getInstance(getTransformation().value(), "AndroidOpenSSL");
         }
         else { // android m and above
             // error in android 5: NoSuchProviderException: Provider not available: AndroidKeyStoreBCWorkaround
-            return Cipher.getInstance(transformation.value(), "AndroidKeyStoreBCWorkaround");
+            return Cipher.getInstance(getTransformation().value(), "AndroidKeyStoreBCWorkaround");
         }
     }
 
@@ -131,8 +132,4 @@ public class DroidRSACryptor implements Cryptor {
         }
     }
 
-    @Override
-    public HashKey getHashKey() {
-        return null;
-    }
 }
