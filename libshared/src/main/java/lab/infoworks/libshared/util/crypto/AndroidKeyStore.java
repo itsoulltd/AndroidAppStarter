@@ -52,11 +52,19 @@ public class AndroidKeyStore implements iKeyStore{
     private WeakReference<Context> weakContext;
     private final String keyAlgorithm;
     private final boolean isDebugMode;
+    private Calendar end;
 
     public AndroidKeyStore(Context context, CryptoAlgorithm keyAlgorithm) {
         this.weakContext = new WeakReference<>(context);
         this.keyAlgorithm = convertAlgorithm(keyAlgorithm);
         this.isDebugMode = BuildConfig.DEBUG;
+        this.end = Calendar.getInstance();
+        this.end.add(Calendar.YEAR, 1);
+    }
+
+    public AndroidKeyStore(Context context, CryptoAlgorithm keyAlgorithm, Calendar end){
+        this(context, keyAlgorithm);
+        this.end = end;
     }
 
     private String convertAlgorithm(CryptoAlgorithm algorithm){
@@ -152,9 +160,6 @@ public class AndroidKeyStore implements iKeyStore{
             if(keyAlgorithm.equalsIgnoreCase(KeyProperties.KEY_ALGORITHM_RSA)) {
                 //
                 Calendar start = Calendar.getInstance();
-                Calendar end = Calendar.getInstance();
-                end.add(Calendar.YEAR, 1);
-                //
                 KeyPairGenerator generator = KeyPairGenerator.getInstance(
                         KeyProperties.KEY_ALGORITHM_RSA, ANDROID_KEY_STORE);
                 KeyPairGeneratorSpec spec = new KeyPairGeneratorSpec.Builder(getContext())
