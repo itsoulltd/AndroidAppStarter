@@ -3,15 +3,10 @@ package lab.infoworks.libshared.util.crypto;
 import android.app.Application;
 import android.content.Context;
 
-import java.security.Key;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.UnrecoverableEntryException;
 import java.util.concurrent.locks.ReentrantLock;
-
-import javax.crypto.SecretKey;
 
 import lab.infoworks.libshared.domain.shared.AppStorage;
 
@@ -108,14 +103,17 @@ public class SecretKeyStore implements iSecretKeyStore{
                 String encryptedSecret = getAppStorage().stringValue(alias);
                 if (encryptedSecret != null && !encryptedSecret.isEmpty()) return;
             }
-            Key pbKey = getKeyStore().encryptKey(alias);
+            /*Key pbKey = getKeyStore().encryptKey(alias);
             if (pbKey instanceof PublicKey){
                 String encrypted = getKeyStore().encryptUsingRsaPublicKey((PublicKey)pbKey, secret);
                 getAppStorage().put(alias, encrypted);
             }else if (pbKey instanceof SecretKey){
                 String encrypted = getKeyStore().encryptUsingAesSecretKey((SecretKey)pbKey, secret);
                 getAppStorage().put(alias, encrypted);
-            }
+            }*/
+            getKeyStore().createKey(alias);
+            String encrypted = getKeyStore().encrypt(alias, secret);
+            getAppStorage().put(alias, encrypted);
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableEntryException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -124,16 +122,16 @@ public class SecretKeyStore implements iSecretKeyStore{
     public String getStoredSecret(String alias) throws RuntimeException {
         try {
             String encrypted = getAppStorage().stringValue(alias);
-            Key pbKey = getKeyStore().decryptKey(alias);
+            /*Key pbKey = getKeyStore().decryptKey(alias);
             if (pbKey instanceof PrivateKey){
                 return getKeyStore().decryptUsingRsaPrivateKey((PrivateKey) pbKey, encrypted);
             } else if (pbKey instanceof SecretKey){
                 return getKeyStore().decryptUsingAesSecretKey((SecretKey) pbKey, encrypted);
-            }
+            }*/
+            return getKeyStore().decrypt(alias, encrypted);
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableEntryException e) {
             throw new RuntimeException(e.getMessage());
         }
-        return "";
     }
 
 }

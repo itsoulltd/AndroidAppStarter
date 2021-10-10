@@ -58,10 +58,10 @@ public class SecretKeyStoreTest {
         String uuidStrB = SecretKeyStore.getInstance().getStoredSecret("SECRET_ALIAS_AES");
         Log.d("StarterApp", "onCreate: retrieved uuid: " + uuidStrB);
 
-        //Assert.assertTrue(uuidStrA.length() == uuidStrB.length());
+        Assert.assertTrue(uuidStrA.length() == uuidStrB.length());
         Log.d("StarterApp", "onCreate: uuid Length is " + (uuidStrB.length() == uuidStrA.length() ? "equal" : "not-equal"));
 
-        //Assert.assertTrue(uuidStrA.equalsIgnoreCase(uuidStrB));
+        Assert.assertTrue(uuidStrA.equalsIgnoreCase(uuidStrB));
         Log.d("StarterApp", "onCreate: uuid Text is " + (uuidStrA.equalsIgnoreCase(uuidStrB) ? "equal" : "not-equal"));
     }
 }

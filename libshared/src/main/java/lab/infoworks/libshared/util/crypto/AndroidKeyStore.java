@@ -4,19 +4,11 @@ import android.content.Context;
 import android.security.KeyPairGeneratorSpec;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.util.Base64;
-import android.util.Log;
 
-import com.google.android.gms.common.util.IOUtils;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -24,21 +16,12 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.util.Calendar;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.CipherInputStream;
-import javax.crypto.CipherOutputStream;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import javax.security.auth.x500.X500Principal;
 
 import lab.infoworks.libshared.BuildConfig;
@@ -122,36 +105,6 @@ public class AndroidKeyStore implements iKeyStore{
     }
 
     @Override
-    public Key encryptKey(String alias) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
-        Key pbKey = createKey(alias);
-        if (pbKey == null) {
-            if(isDebugMode) Log.d(TAG, "encryptKey: " + "Already exist.");
-            KeyStore.Entry entry = getKeyStore().getEntry(alias, null);
-            if (entry instanceof KeyStore.PrivateKeyEntry){
-                pbKey = ((KeyStore.PrivateKeyEntry) entry).getCertificate().getPublicKey();
-            } else if(entry instanceof KeyStore.SecretKeyEntry) {
-                pbKey = ((KeyStore.SecretKeyEntry) entry).getSecretKey();
-            }
-        }
-        return pbKey;
-    }
-
-    @Override
-    public Key decryptKey(String alias) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
-        if (!getKeyStore().containsAlias(alias)) {
-            throw new RuntimeException(alias + " Not Exist!");
-        }
-        Key key = null;
-        KeyStore.Entry entry = getKeyStore().getEntry(alias, null);
-        if (entry instanceof KeyStore.PrivateKeyEntry){
-            key = ((KeyStore.PrivateKeyEntry) entry).getPrivateKey();
-        } else if(entry instanceof KeyStore.SecretKeyEntry) {
-            key = ((KeyStore.SecretKeyEntry) entry).getSecretKey();
-        }
-        return key;
-    }
-
-    @Override
     public Key createKey(String alias) throws RuntimeException {
         //Pre-Check if already created:
         try {
@@ -195,6 +148,56 @@ public class AndroidKeyStore implements iKeyStore{
             throw new RuntimeException(e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public String encrypt(String alias, String text) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
+        if (keyAlgorithm == KeyProperties.KEY_ALGORITHM_RSA){
+            return getRsaCryptor().encrypt(alias, text);
+        } else if (keyAlgorithm == KeyProperties.KEY_ALGORITHM_AES){
+            return getAesCryptor().encrypt(alias, text);
+        }
+        return null;
+    }
+
+    @Override
+    public String decrypt(String alias, String encrypted) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
+        if (keyAlgorithm == KeyProperties.KEY_ALGORITHM_RSA){
+            return getRsaCryptor().decrypt(alias, encrypted);
+        } else if (keyAlgorithm == KeyProperties.KEY_ALGORITHM_AES){
+            return getAesCryptor().decrypt(alias, encrypted);
+        }
+        return null;
+    }
+
+    /*@Override
+    public Key encryptKey(String alias) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
+        Key pbKey = createKey(alias);
+        if (pbKey == null) {
+            if(isDebugMode) Log.d(TAG, "encryptKey: " + "Already exist.");
+            KeyStore.Entry entry = getKeyStore().getEntry(alias, null);
+            if (entry instanceof KeyStore.PrivateKeyEntry){
+                pbKey = ((KeyStore.PrivateKeyEntry) entry).getCertificate().getPublicKey();
+            } else if(entry instanceof KeyStore.SecretKeyEntry) {
+                pbKey = ((KeyStore.SecretKeyEntry) entry).getSecretKey();
+            }
+        }
+        return pbKey;
+    }
+
+    @Override
+    public Key decryptKey(String alias) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
+        if (!getKeyStore().containsAlias(alias)) {
+            throw new RuntimeException(alias + " Not Exist!");
+        }
+        Key key = null;
+        KeyStore.Entry entry = getKeyStore().getEntry(alias, null);
+        if (entry instanceof KeyStore.PrivateKeyEntry){
+            key = ((KeyStore.PrivateKeyEntry) entry).getPrivateKey();
+        } else if(entry instanceof KeyStore.SecretKeyEntry) {
+            key = ((KeyStore.SecretKeyEntry) entry).getSecretKey();
+        }
+        return key;
     }
 
     @Override
@@ -287,5 +290,5 @@ public class AndroidKeyStore implements iKeyStore{
                 | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
             throw new RuntimeException(e.getMessage());
         }
-    }
+    }*/
 }
