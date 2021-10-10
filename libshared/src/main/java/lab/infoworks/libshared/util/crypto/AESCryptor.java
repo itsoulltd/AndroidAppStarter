@@ -4,12 +4,12 @@ import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AESCryptor implements Cryptor{
@@ -38,7 +38,7 @@ public class AESCryptor implements Cryptor{
 
     private Cipher getCipher(String secret) throws Exception{
         if (cipher == null){
-            SecretKey secretKey = getSecretKey(secret);
+            Key secretKey = getKey(secret);
             cipher = Cipher.getInstance(transformation.value());
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         }
@@ -47,7 +47,7 @@ public class AESCryptor implements Cryptor{
 
     private Cipher getDecipher(String secret) throws Exception{
         if (decipher == null){
-            SecretKey secretKey = getSecretKey(secret);
+            Key secretKey = getKey(secret);
             decipher = Cipher.getInstance(transformation.value());
             decipher.init(Cipher.DECRYPT_MODE, secretKey);
         }
@@ -55,7 +55,7 @@ public class AESCryptor implements Cryptor{
     }
 
     @Override
-    public SecretKey getSecretKey(String mykey)
+    public Key getKey(String mykey)
             throws UnsupportedEncodingException, NoSuchAlgorithmException {
         //
         if (mykey == null || mykey.isEmpty())
