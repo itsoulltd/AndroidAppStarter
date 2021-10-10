@@ -90,7 +90,7 @@ public class AndroidKeyStore implements iKeyStore {
         return _keyAlgorithm;
     }
 
-    private KeyStore getKeyStore() throws RuntimeException {
+    public KeyStore getKeyStore() throws RuntimeException {
         if (keyStore == null){
             try {
                 keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);

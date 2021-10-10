@@ -18,7 +18,6 @@ public class SecretKeyStore implements iSecretKeyStore {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final String ANDROID_KEY_STORE = "AndroidKeyStore";
     public static final String TAG = SecretKeyStore.class.getSimpleName();
     private static volatile SecretKeyStore instance;
     private static final ReentrantLock REENTRANT_LOCK = new ReentrantLock();
