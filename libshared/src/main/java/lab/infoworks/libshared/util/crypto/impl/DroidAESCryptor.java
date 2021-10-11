@@ -21,6 +21,7 @@ import javax.crypto.spec.IvParameterSpec;
 
 import lab.infoworks.libshared.BuildConfig;
 import lab.infoworks.libshared.util.crypto.definition.Cryptor;
+import lab.infoworks.libshared.util.crypto.definition.IVectorIO;
 import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
 import lab.infoworks.libshared.util.crypto.models.HashKey;
 import lab.infoworks.libshared.util.crypto.models.Transformation;
@@ -32,13 +33,15 @@ public class DroidAESCryptor implements Cryptor {
     private Cipher decipher;
     private KeyStore keyStore;
     private final boolean isDebugMode;
+    private IVectorIO iVectorIO;
 
     private final Transformation transformation;
 
-    public DroidAESCryptor(KeyStore keyStore) {
+    public DroidAESCryptor(KeyStore keyStore, IVectorIO iVectorIO) {
         this.keyStore = keyStore;
         this.transformation = Transformation.AES_CBC_PKCS7Padding;
         this.isDebugMode = BuildConfig.DEBUG;
+        this.iVectorIO = iVectorIO;
     }
 
     public CryptoAlgorithm getAlgorithm() {return null;}
@@ -47,6 +50,7 @@ public class DroidAESCryptor implements Cryptor {
     }
     public Transformation getTransformation() {return transformation;}
     private KeyStore getKeyStore(){return keyStore;}
+    private IVectorIO getIV() {return iVectorIO;}
 
     @Override
     public Key getKey(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
@@ -63,6 +67,8 @@ public class DroidAESCryptor implements Cryptor {
             Cipher cipher = Cipher.getInstance(getTransformation().value());
             cipher.init(Cipher.ENCRYPT_MODE, getKey(alias));
             this.cipher = cipher;
+            /*if (!getIV().isSaved(alias))*/
+            getIV().write(alias, this.cipher.getIV());
         }
         return cipher;
     }
@@ -83,7 +89,9 @@ public class DroidAESCryptor implements Cryptor {
 
     private Cipher getDecipher(String alias) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException {
         if (this.decipher == null){
-            IvParameterSpec ivParameterSpec = new IvParameterSpec(getCipher(alias).getIV());
+            //byte[] ivs = getCipher(alias).getIV();
+            byte[] ivs = getIV().read(alias);
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(ivs);
             Cipher cipher = Cipher.getInstance(getTransformation().value());
             cipher.init(Cipher.DECRYPT_MODE, getKey(alias), ivParameterSpec);
             this.decipher = cipher;

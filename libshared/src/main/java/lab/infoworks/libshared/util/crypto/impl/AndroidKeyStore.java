@@ -26,6 +26,7 @@ import javax.security.auth.x500.X500Principal;
 
 import lab.infoworks.libshared.BuildConfig;
 import lab.infoworks.libshared.util.crypto.definition.Cryptor;
+import lab.infoworks.libshared.util.crypto.definition.IVectorIO;
 import lab.infoworks.libshared.util.crypto.definition.iKeyStore;
 import lab.infoworks.libshared.util.crypto.models.CryptoAlgorithm;
 
@@ -57,7 +58,8 @@ public class AndroidKeyStore implements iKeyStore {
 
     private Cryptor getAesCryptor(){
         if (aesCryptor == null){
-            aesCryptor = new DroidAESCryptor(getKeyStore());
+            IVectorIO iVectorIO = new IVReadWriter(getContext());
+            aesCryptor = new DroidAESCryptor(getKeyStore(), iVectorIO);
         }
         return aesCryptor;
     }

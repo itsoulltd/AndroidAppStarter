@@ -67,4 +67,23 @@ public class SecretKeyStoreTest {
         Assert.assertTrue(uuidStrA.equalsIgnoreCase(uuidStrB));
         Log.d("StarterApp", "onCreate: uuid Text is " + (uuidStrA.equalsIgnoreCase(uuidStrB) ? "equal" : "not-equal"));
     }
+
+    @Test
+    public void storeAESKeyStore(){
+        //Generate Device UUID:
+        UUID uuid = UUID.randomUUID();
+        String uuidStrA = uuid.toString();
+        Log.d("StarterApp", "onCreate: stored uuid: " + uuidStrA);
+        //Save the device uuid into KeyStore:
+        SecretKeyStore.init(appContext, CryptoAlgorithm.AES).storeSecret("SECRET_ALIAS_AES", uuidStrA, true);
+    }
+
+    @Test
+    public void restoreAESKeyStore(){
+        //Save the device uuid into KeyStore:
+        SecretKeyStore.init(appContext, CryptoAlgorithm.AES);
+        //Retrieve the saved uuid from KeyStore:
+        String uuidStrB = SecretKeyStore.getInstance().getStoredSecret("SECRET_ALIAS_AES");
+        Log.d("StarterApp", "onCreate: retrieved uuid: " + uuidStrB);
+    }
 }
