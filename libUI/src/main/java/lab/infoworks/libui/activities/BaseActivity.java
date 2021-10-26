@@ -100,8 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         //Log.d(TAG, "showBottomSheet: " + tag);
         if (getSupportFragmentManager().findFragmentByTag(tag) != null)
             return;
-        AlertSheetFragment bottomSheetFragment = AlertSheetFragment.newInstance(refCode
-                , message);
+        AlertSheetFragment bottomSheetFragment = AlertSheetFragment.newInstance(refCode, message);
         bottomSheetFragment.setCancelable(false);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(bottomSheetFragment, tag);
