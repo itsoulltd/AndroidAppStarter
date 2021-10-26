@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import lab.infoworks.libshared.controllers.LocationPermissionController;
 import lab.infoworks.libshared.controllers.LocationStreamController;
 import lab.infoworks.libshared.controllers.models.LocationStreamProperties;
-import lab.infoworks.libui.activities.ActivityDecorator;
 import lab.infoworks.libui.activities.BaseActivity;
 
 public class LocationDetector extends ActivityDecorator implements LocationPermissionController.LocationPermissionsObserver,

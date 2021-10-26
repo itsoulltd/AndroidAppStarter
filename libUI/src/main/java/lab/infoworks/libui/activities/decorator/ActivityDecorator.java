@@ -1,4 +1,4 @@
-package lab.infoworks.libui.activities;
+package lab.infoworks.libui.activities.decorator;
 
 import android.content.Intent;
 
@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
+import lab.infoworks.libui.activities.BaseActivity;
 import lab.infoworks.libui.alert.AlertSheetFragment;
 
 public abstract class ActivityDecorator implements AlertSheetFragment.OnFragmentInteractionListener {

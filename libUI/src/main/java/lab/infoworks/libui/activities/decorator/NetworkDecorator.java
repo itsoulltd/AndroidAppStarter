@@ -7,7 +7,6 @@ import android.provider.Settings;
 import androidx.annotation.Nullable;
 
 import lab.infoworks.libshared.controllers.NetworkActivityController;
-import lab.infoworks.libui.activities.ActivityDecorator;
 import lab.infoworks.libui.activities.BaseActivity;
 
 public class NetworkDecorator extends ActivityDecorator implements NetworkActivityController.NetworkMonitoring{

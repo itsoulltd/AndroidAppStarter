@@ -5,7 +5,6 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
-import lab.infoworks.libui.activities.ActivityDecorator;
 import lab.infoworks.libui.activities.BaseActivity;
 
 public class KeepScreenOnDecorator extends ActivityDecorator {

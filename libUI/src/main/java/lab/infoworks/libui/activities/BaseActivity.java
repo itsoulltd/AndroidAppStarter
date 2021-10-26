@@ -19,6 +19,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 import lab.infoworks.libshared.notifications.NotificationCenter;
 import lab.infoworks.libshared.notifications.NotificationType;
+import lab.infoworks.libui.activities.decorator.ActivityDecorator;
 import lab.infoworks.libui.alert.AlertSheetFragment;
 
 public abstract class BaseActivity extends AppCompatActivity implements AlertSheetFragment.OnFragmentInteractionListener{
