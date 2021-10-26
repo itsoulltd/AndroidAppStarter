@@ -96,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    protected void showBottomSheet(String tag, int refCode, String message) {
+    public void showBottomSheet(String tag, int refCode, String message) {
         //Log.d(TAG, "showBottomSheet: " + tag);
         if (getSupportFragmentManager().findFragmentByTag(tag) != null)
             return;
@@ -107,7 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         ft.commitAllowingStateLoss();
     }
 
-    protected void closeBottomSheet(String tag) {
+    public void closeBottomSheet(String tag) {
         //Log.d(TAG, "closeBottomSheet: " + tag);
         AlertSheetFragment bottomSheetFragment = (AlertSheetFragment) getSupportFragmentManager()
                 .findFragmentByTag(tag);

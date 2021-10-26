@@ -10,9 +10,11 @@ import lab.infoworks.libshared.controllers.LocationPermissionController;
 import lab.infoworks.libshared.controllers.LocationStreamController;
 import lab.infoworks.libshared.controllers.models.LocationStreamProperties;
 
-public abstract class BaseLocationActivity extends KeepScreenOnActivity
+public abstract class BaseLocationActivity extends BaseNetworkActivity
         implements LocationPermissionController.LocationPermissionsObserver,
         LocationPermissionController.LocationProviderObserver{
+
+    protected static final int RC_LOCATION = 903;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

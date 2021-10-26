@@ -11,7 +11,6 @@ public abstract class BaseNetworkActivity extends BaseActivity
         implements NetworkActivityController.NetworkMonitoring {
 
     protected static final int RC_NETWORK = 902;
-    protected static final int RC_LOCATION = 903;
 
     @Override
     protected void onStart() {
