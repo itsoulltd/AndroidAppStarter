@@ -96,6 +96,19 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         _decorator = decorator;
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (getDecorator() != null)
+            getDecorator().onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (getDecorator() != null)
+            getDecorator().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     ///////////////////////////////////////////////
 
     protected AlertDialog.Builder createAlertBuilder() {
@@ -143,6 +156,12 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         if ( bottomSheetFragment != null) {
             bottomSheetFragment.dismiss();
         }
+    }
+
+    @Override
+    public void onBottomSheetButtonClick(int refCode) {
+        if (getDecorator() != null)
+            getDecorator().onBottomSheetButtonClick(refCode);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////

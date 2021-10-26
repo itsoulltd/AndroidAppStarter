@@ -1,6 +1,7 @@
 package lab.infoworks.libui.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.provider.Settings;
 
 import androidx.annotation.Nullable;
@@ -22,7 +23,9 @@ public abstract class BaseNetworkActivity extends BaseActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getMonitoringController().disableNetworkConnectivity();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            getMonitoringController().disableNetworkConnectivity();
+        }
     }
 
     @Override
