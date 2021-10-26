@@ -20,8 +20,7 @@ import lab.infoworks.libshared.domain.remote.DownloadTracker;
 import lab.infoworks.libshared.domain.shared.AssetManager;
 import lab.infoworks.libshared.notifications.SystemNotificationTray;
 import lab.infoworks.libui.activities.BaseActivity;
-import lab.infoworks.libui.activities.decorator.LocationDetector;
-import lab.infoworks.libui.activities.decorator.NetworkDecorator;
+import lab.infoworks.libui.activities.decorator.*;
 import lab.infoworks.starter.R;
 
 

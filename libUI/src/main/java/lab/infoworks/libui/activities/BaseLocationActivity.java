@@ -1,39 +1,29 @@
 package lab.infoworks.libui.activities;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 
-import lab.infoworks.libshared.controllers.LocationPermissionController;
 import lab.infoworks.libshared.controllers.LocationStreamController;
 import lab.infoworks.libshared.controllers.models.LocationStreamProperties;
+import lab.infoworks.libui.activities.decorator.LocationDetector;
 
-public abstract class BaseLocationActivity extends BaseNetworkActivity
-        implements LocationPermissionController.LocationPermissionsObserver,
-        LocationPermissionController.LocationProviderObserver{
-
-    public static final int RC_LOCATION = 903;
+public abstract class BaseLocationActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onStart() {
+        super.onStart();
+        new LocationDetector(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //getLocationController().askForPermissionAtRuntime(this);
-        getLocationPermissionController().checkLocationProviderAvailability(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
-            getLocationPermissionController().close();
-        } catch (Exception e) {}
     }
 
     @Override
@@ -44,51 +34,6 @@ public abstract class BaseLocationActivity extends BaseNetworkActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        getLocationPermissionController().handleRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    private LocationPermissionController locationController;
-
-    public LocationPermissionController getLocationPermissionController() {
-        if (locationController == null) locationController = new LocationPermissionController();
-        return locationController;
-    }
-
-    /**
-     *
-     */
-
-    @Override
-    public void onBottomSheetButtonClick(int code) {
-        super.onBottomSheetButtonClick(code);
-        if(code == RC_LOCATION) startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), RC_LOCATION);
-    }
-
-    /**
-     *
-     *
-     */
-
-    @Override
-    public void locationPermissionsDidSuccessful(Object... observant) {
-        closeBottomSheet("location-bottom-fragment");
-    }
-
-    @Override
-    public void locationPermissionsDidFailed(String error) {
-        if (error == null || error.isEmpty()){
-            error = "Location access permission not available. Please go to settings and update location access permission!";
-        }
-        showBottomSheet("location-bottom-fragment", RC_LOCATION, error);
-    }
-
-    @Override
-    public void observeLocationProviderStatus(boolean active, String[] providers) {
-        if (active){
-            closeBottomSheet("location-bottom-fragment");
-        }else {
-            showBottomSheet("location-bottom-fragment", RC_LOCATION,"Device Location Service is disabled! \n \n");
-        }
     }
 
     private LocationStreamProperties streamProperties;
