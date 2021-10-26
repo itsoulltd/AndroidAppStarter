@@ -99,17 +99,4 @@ public class LocationDetector extends ActivityDecorator implements LocationPermi
         }
     }
 
-    private LocationStreamProperties streamProperties;
-    private LocationStreamController streamController;
-
-    public LocationStreamController getLocationStreamController() {
-        if (streamController == null){
-            streamProperties = new LocationStreamProperties.Builder()
-                    .addUpdateInterval(6000)
-                    .addSmallestDisplacement(10)
-                    .build();
-            streamController = new LocationStreamController(getActivity(), streamProperties);
-        }
-        return streamController;
-    }
 }
