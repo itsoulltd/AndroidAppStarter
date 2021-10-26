@@ -19,12 +19,12 @@ import butterknife.OnClick;
 import lab.infoworks.libshared.domain.remote.DownloadTracker;
 import lab.infoworks.libshared.domain.shared.AssetManager;
 import lab.infoworks.libshared.notifications.SystemNotificationTray;
-import lab.infoworks.libui.activities.BaseNetworkActivity;
+import lab.infoworks.libui.activities.BaseActivity;
+import lab.infoworks.libui.activities.decorator.NetworkDecorator;
 import lab.infoworks.starter.R;
-import lab.infoworks.starter.ui.app.StarterApp;
 
 
-public class AppActivity extends BaseNetworkActivity {
+public class AppActivity extends BaseActivity {
 
     private static final String TAG = AppActivity.class.getName();
 
@@ -44,6 +44,7 @@ public class AppActivity extends BaseNetworkActivity {
 
         setContentView(R.layout.activity_rider);
         ButterKnife.bind(this);
+        new NetworkDecorator(this);
 
         notificationTray = new SystemNotificationTray(this);
 
