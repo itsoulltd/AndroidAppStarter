@@ -17,6 +17,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import lab.infoworks.libshared.notifications.NotificationCenter;
 import lab.infoworks.libshared.notifications.NotificationType;
 import lab.infoworks.libui.activities.decorator.ActivityDecorator;
@@ -25,7 +29,6 @@ import lab.infoworks.libui.alert.AlertSheetFragment;
 public abstract class BaseActivity extends AppCompatActivity implements AlertSheetFragment.OnFragmentInteractionListener{
 
     protected String TAG = "ACTIVITY_STATE " + this.getClass().getSimpleName();
-    private ActivityDecorator _decorator;
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -46,35 +49,55 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
     @Override
     protected void onStart() {
         super.onStart();
-        if (getDecorator() != null) getDecorator().onStart();
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator : getDecorators()) {
+                decorator.onStart();
+            }
+        }
         Log.d(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (getDecorator() != null) getDecorator().onResume();
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator : getDecorators()) {
+                decorator.onResume();
+            }
+        }
         Log.d(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (getDecorator() != null) getDecorator().onPause();
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator : getDecorators()) {
+                decorator.onPause();
+            }
+        }
         Log.d(TAG, "onPause");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (getDecorator() != null) getDecorator().onRestart();
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator : getDecorators()) {
+                decorator.onRestart();
+            }
+        }
         Log.d(TAG, "onRestart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (getDecorator() != null) getDecorator().onStop();
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator : getDecorators()) {
+                decorator.onStop();
+            }
+        }
         Log.d(TAG, "onStop");
     }
 
@@ -83,29 +106,45 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         super.onDestroy();
         // Don't forget to unsubscribe from notifications listener
         NotificationCenter.removeObserver(this, NotificationType.FORCE_SIGN_OUT.name());
-        if (getDecorator() != null) getDecorator().onDestroy();
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator : getDecorators()) {
+                decorator.onDestroy();
+            }
+        }
         Log.d(TAG, "onDestroy");
     }
 
-    protected ActivityDecorator getDecorator() {
-        return _decorator;
+    private Set<ActivityDecorator> _decorators;
+    protected Collection<ActivityDecorator> getDecorators() {
+        return _decorators;
     }
 
     public void setDecorator(ActivityDecorator decorator) {
-        _decorator = decorator;
+        if (_decorators == null){
+            _decorators = new HashSet<>();
+        }
+        _decorators.add(decorator);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (getDecorator() != null)
-            getDecorator().onActivityResult(requestCode, resultCode, data);
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator :
+                    getDecorators()) {
+                decorator.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (getDecorator() != null)
-            getDecorator().onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator :
+                    getDecorators()) {
+                decorator.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
     }
 
     ///////////////////////////////////////////////
@@ -159,8 +198,11 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
 
     @Override
     public void onBottomSheetButtonClick(int refCode) {
-        if (getDecorator() != null)
-            getDecorator().onBottomSheetButtonClick(refCode);
+        if (getDecorators() != null) {
+            for (ActivityDecorator decorator : getDecorators()) {
+                decorator.onBottomSheetButtonClick(refCode);
+            }
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
