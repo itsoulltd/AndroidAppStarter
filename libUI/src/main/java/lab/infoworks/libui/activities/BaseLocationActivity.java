@@ -14,7 +14,7 @@ public abstract class BaseLocationActivity extends BaseNetworkActivity
         implements LocationPermissionController.LocationPermissionsObserver,
         LocationPermissionController.LocationProviderObserver{
 
-    protected static final int RC_LOCATION = 903;
+    public static final int RC_LOCATION = 903;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

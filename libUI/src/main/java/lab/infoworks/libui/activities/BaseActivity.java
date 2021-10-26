@@ -24,10 +24,12 @@ import lab.infoworks.libui.alert.AlertSheetFragment;
 public abstract class BaseActivity extends AppCompatActivity implements AlertSheetFragment.OnFragmentInteractionListener{
 
     protected String TAG = "ACTIVITY_STATE " + this.getClass().getSimpleName();
+    private ActivityDecorator _decorator;
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        if (getDecorator() != null) getDecorator().onSaveInstanceState(outState);
     }
 
     @Override
@@ -38,25 +40,43 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
             //TODO:
             //Global Logout From Here!
         });
+        if (getDecorator() != null) getDecorator().onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        if (getDecorator() != null) getDecorator().onStart();
         Log.d(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (getDecorator() != null) getDecorator().onResume();
         Log.d(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        if (getDecorator() != null) getDecorator().onPause();
         Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (getDecorator() != null) getDecorator().onRestart();
+        Log.d(TAG, "onRestart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (getDecorator() != null) getDecorator().onStop();
+        Log.d(TAG, "onStop");
     }
 
     @Override
@@ -64,7 +84,16 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         super.onDestroy();
         // Don't forget to unsubscribe from notifications listener
         NotificationCenter.removeObserver(this, NotificationType.FORCE_SIGN_OUT.name());
+        if (getDecorator() != null) getDecorator().onDestroy();
         Log.d(TAG, "onDestroy");
+    }
+
+    protected ActivityDecorator getDecorator() {
+        return _decorator;
+    }
+
+    public void setDecorator(ActivityDecorator decorator) {
+        _decorator = decorator;
     }
 
     ///////////////////////////////////////////////

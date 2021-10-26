@@ -10,7 +10,7 @@ import lab.infoworks.libshared.controllers.NetworkActivityController;
 public abstract class BaseNetworkActivity extends BaseActivity
         implements NetworkActivityController.NetworkMonitoring {
 
-    protected static final int RC_NETWORK = 902;
+    public static final int RC_NETWORK = 902;
 
     @Override
     protected void onStart() {
