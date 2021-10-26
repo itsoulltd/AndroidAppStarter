@@ -28,54 +28,48 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        //Log.d(TAG, "onSaveInstanceState");
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Log.d(TAG, "onCreate");
         //subscribe to notifications listener in onCreate of activity
         NotificationCenter.addObserver(this, NotificationType.FORCE_SIGN_OUT.name(), (context, intent) -> {
             //TODO:
             //Global Logout From Here!
         });
+        Log.d(TAG, "onCreate");
     }
-
-    //FIXME: Refactoring to all child activity:
-    /*protected abstract void initViews();
-    protected abstract void loadContents();
-    protected abstract void initListeners();*/
 
     @Override
     protected void onStart() {
         super.onStart();
-        //Log.d(TAG, "onStart");
+        Log.d(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //Log.d(TAG, "onResume");
+        Log.d(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //Log.d(TAG, "onPause");
+        Log.d(TAG, "onPause");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //Log.d(TAG, "onDestroy");
         // Don't forget to unsubscribe from notifications listener
         NotificationCenter.removeObserver(this, NotificationType.FORCE_SIGN_OUT.name());
+        Log.d(TAG, "onDestroy");
     }
 
     ///////////////////////////////////////////////
 
-    public AlertDialog.Builder createAlertBuilder() {
+    protected AlertDialog.Builder createAlertBuilder() {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
@@ -85,13 +79,13 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         return builder;
     }
 
-    public void copyToClipBoard(String data) {
+    protected void copyToClipBoard(String data) {
         ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(this.CLIPBOARD_SERVICE);
         ClipData clipData = ClipData.newPlainText("Copied to clipboard", data);
         clipboardManager.setPrimaryClip(clipData);
     }
 
-    public void gotoPlayStore(){
+    protected void gotoPlayStore(){
         final String appPackageName = getPackageName();
         try {
             this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
@@ -100,7 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         }
     }
 
-    //////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     protected void showBottomSheet(String tag, int refCode, String message) {
         //Log.d(TAG, "showBottomSheet: " + tag);
@@ -123,7 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
         }
     }
 
-    //////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     private static final Integer PLAY_SERVICES_RESOLUTION_REQUEST = 2404;
 
