@@ -20,6 +20,7 @@ import lab.infoworks.libshared.domain.remote.DownloadTracker;
 import lab.infoworks.libshared.domain.shared.AssetManager;
 import lab.infoworks.libshared.notifications.SystemNotificationTray;
 import lab.infoworks.libui.activities.BaseActivity;
+import lab.infoworks.libui.activities.decorator.LocationDetector;
 import lab.infoworks.libui.activities.decorator.NetworkDecorator;
 import lab.infoworks.starter.R;
 
@@ -44,7 +45,9 @@ public class AppActivity extends BaseActivity {
 
         setContentView(R.layout.activity_rider);
         ButterKnife.bind(this);
-        new NetworkDecorator(this);
+        //Adding Decorators:
+        //new NetworkDecorator(this);
+        //new LocationDetector(this);
 
         notificationTray = new SystemNotificationTray(this);
 
