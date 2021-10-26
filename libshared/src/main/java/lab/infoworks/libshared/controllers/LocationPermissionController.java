@@ -50,6 +50,10 @@ public class LocationPermissionController implements AutoCloseable{
         return false;
     }
 
+    public void setLocationPermissionObserver(LocationPermissionsObserver observer){
+        _observer = observer;
+    }
+
     public void askForPermissionAtRuntime(Activity context){
         if (LocationPermissionsObserver.class.isAssignableFrom(context.getClass())){
             _observer = (LocationPermissionsObserver) context;
@@ -93,6 +97,10 @@ public class LocationPermissionController implements AutoCloseable{
             exe = Executors.newSingleThreadExecutor();
         }
         return exe;
+    }
+
+    public void setLocationProviderObserver(LocationProviderObserver observer){
+        _providerObserver = observer;
     }
 
     public void checkLocationProviderAvailability(Activity context){

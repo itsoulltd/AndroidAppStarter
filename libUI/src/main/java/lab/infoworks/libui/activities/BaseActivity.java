@@ -29,7 +29,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (getDecorator() != null) getDecorator().onSaveInstanceState(outState);
     }
 
     @Override
@@ -40,7 +39,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AlertShe
             //TODO:
             //Global Logout From Here!
         });
-        if (getDecorator() != null) getDecorator().onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
     }
 
