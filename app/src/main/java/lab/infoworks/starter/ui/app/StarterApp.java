@@ -1,6 +1,9 @@
 package lab.infoworks.starter.ui.app;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.app.Service;
+import android.content.Context;
 import android.util.Log;
 
 import java.util.concurrent.Executor;
@@ -40,5 +43,16 @@ public class StarterApp extends Application {
             }
         }
         super.onTerminate();
+    }
+
+    public static boolean isServiceRunning(Context context, Class<? extends Service> serviceCls){
+        boolean result = false;
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceCls.getName().equals(service.service.getClassName())) {
+                result = true;
+            }
+        }
+        return result;
     }
 }
