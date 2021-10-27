@@ -51,6 +51,7 @@ public class StarterApp extends Application {
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceCls.getName().equals(service.service.getClassName())) {
                 result = true;
+                break;
             }
         }
         return result;
