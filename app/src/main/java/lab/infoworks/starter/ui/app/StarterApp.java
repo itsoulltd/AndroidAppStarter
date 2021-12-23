@@ -1,9 +1,13 @@
 package lab.infoworks.starter.ui.app;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import java.util.concurrent.Executor;
@@ -56,4 +60,15 @@ public class StarterApp extends Application {
         }
         return result;
     }
+
+    public static void bringToFront(Context context, Class<? extends Activity> activity, long delayInMillis){
+        delayInMillis = (delayInMillis < 0l) ? 0l : delayInMillis;
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> {
+            Intent bringMeFront = new Intent(context.getApplicationContext(), activity);
+            bringMeFront.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(bringMeFront);
+        }, delayInMillis);
+    }
+
 }
