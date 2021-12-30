@@ -20,7 +20,6 @@ import lab.infoworks.libshared.domain.remote.DownloadTracker;
 import lab.infoworks.libshared.domain.shared.AssetManager;
 import lab.infoworks.libshared.notifications.SystemNotificationTray;
 import lab.infoworks.libui.activities.BaseActivity;
-import lab.infoworks.libui.activities.decorator.*;
 import lab.infoworks.starter.R;
 
 
@@ -42,7 +41,7 @@ public class AppActivity extends BaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_rider);
+        setContentView(R.layout.activity_app);
         ButterKnife.bind(this);
         //Adding Decorators:
         //new NetworkDecorator(this);
