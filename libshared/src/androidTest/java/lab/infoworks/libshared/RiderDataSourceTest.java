@@ -60,59 +60,59 @@ public class RiderDataSourceTest {
     @Test
     public void readTest(){
 
-        System.out.println("===========================0-(datasource.size())======================");
+        System.out.println("===========================0-MaxSize======================");
         int maxItem = Long.valueOf(dataSource.size()).intValue();
-        List<Rider> readAll = Arrays.asList(dataSource.readSync(0, maxItem));
+        List<Rider> readAll = dataSource.readSyncAsList(0, maxItem);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================1-2==========================");
-        readAll = Arrays.asList(dataSource.readSync(1, 2));
+        readAll = dataSource.readSyncAsList(1, 2);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================2-3=========================");
-        readAll = Arrays.asList(dataSource.readSync(2, 3));
+        readAll = dataSource.readSyncAsList(2, 3);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================0-3=========================");
-        readAll = Arrays.asList(dataSource.readSync(0, 3));
+        readAll = dataSource.readSyncAsList(0, 3);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("===========================0-2========================");
-        readAll = Arrays.asList(dataSource.readSync(0, 2));
+        readAll = dataSource.readSyncAsList(0, 2);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================100-10=======================");
-        readAll = Arrays.asList(dataSource.readSync(100, 10));
+        readAll = dataSource.readSyncAsList(100, 10);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================0-0=======================");
-        readAll = Arrays.asList(dataSource.readSync(0, 0));
+        readAll = dataSource.readSyncAsList(0, 0);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================1-0=======================");
-        readAll = Arrays.asList(dataSource.readSync(1, 0));
+        readAll = dataSource.readSyncAsList(1, 0);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================4-1=======================");
-        readAll = Arrays.asList(dataSource.readSync(4, 1));
+        readAll = dataSource.readSyncAsList(4, 1);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================4-2=======================");
-        readAll = Arrays.asList(dataSource.readSync(4, 2));
+        readAll = dataSource.readSyncAsList(4, 2);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
         System.out.println("==========================4-3=======================");
-        readAll = Arrays.asList(dataSource.readSync(4, 3));
+        readAll = dataSource.readSyncAsList(4, 3);
         for (Rider p : readAll) {
             System.out.println(p.getName() + ":" + p.getEmail());
         }
