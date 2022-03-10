@@ -40,7 +40,7 @@ public class CacheManagerTest {
         CacheManager<Rider> riderCache = new CacheManager<>("rider-cache");
         //Saving:
         riderCache.clear()
-                .save(dataSource.readSyncAsList(0, dataSource.size()))
+                .add(dataSource.readSyncAsList(0, dataSource.size()))
                 .save(storage);
         //Read Back:
         List<Rider> readBack = riderCache.fetch(0, dataSource.size());

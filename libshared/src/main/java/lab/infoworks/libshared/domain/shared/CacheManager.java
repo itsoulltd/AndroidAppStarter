@@ -25,7 +25,7 @@ public class CacheManager<E extends Entity> {
         if (Message.isValidJson(dhs)){
             try {
                 List<E> houses = (List<E>) Message.unmarshal(type, dhs);
-                clear().save(houses);
+                clear().add(houses);
             } catch (IOException e) {}
         }
     }
@@ -71,7 +71,7 @@ public class CacheManager<E extends Entity> {
         return this;
     }
 
-    public CacheManager save(List<E> eList){
+    public CacheManager add(List<E> eList){
         for (E dh: eList) {
             getCache().add(dh);
         }
