@@ -2,15 +2,14 @@ package lab.infoworks.libshared;
 
 import android.content.Context;
 
-import androidx.test.InstrumentationRegistry;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
 import java.util.List;
 
 import lab.infoworks.libshared.domain.datasource.RiderDataSource;
@@ -21,12 +20,17 @@ public class RiderDataSourceTest {
 
     public static String TAG = "RiderDataSourceTest";
     RiderDataSource dataSource;
+    Context appContext;
 
     @Before
     public void setUp() throws Exception {
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        dataSource = new RiderDataSource(appContext);
-        //
+        appContext = InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext();
+        dataSource = getRiderDatasource(appContext);
+    }
+
+    private RiderDataSource getRiderDatasource(Context appContext) {
+        RiderDataSource dataSource = new RiderDataSource(appContext);
+
         dataSource.add(new Rider()
                 .setName("John")
                 .setEmail("john@gmail.com"));
@@ -50,11 +54,14 @@ public class RiderDataSourceTest {
         dataSource.add(new Rider()
                 .setName("Adam")
                 .setEmail("adam@gmail.com"));
+
+        return dataSource;
     }
 
     @After
     public void tearDown() throws Exception {
         dataSource = null;
+        appContext = null;
     }
 
     @Test
