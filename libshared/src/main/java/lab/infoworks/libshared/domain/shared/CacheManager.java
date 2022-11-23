@@ -135,10 +135,6 @@ public class CacheManager<E extends Entity> {
             this.cacheStorage = new LRUCache<>(maxSize);
         }
 
-        protected Collection<E> getCacheStorage() {
-            return cacheStorage.values();
-        }
-
         @Override
         protected Map<String, E> getInMemoryStorage() {
             return cacheStorage;
