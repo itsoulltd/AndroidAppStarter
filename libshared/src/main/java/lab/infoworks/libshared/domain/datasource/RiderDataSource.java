@@ -28,7 +28,7 @@ public class RiderDataSource extends CMDataSource<Integer, Rider> implements Dat
     public void readAsync(int offset, int pageSize, Consumer<Rider[]> consumer) {
         if (consumer != null) {
             //TODO:
-            List<Rider> items = readSyncAsList(offset, pageSize);
+            List<Rider> items = fetch(offset, pageSize);
             consumer.accept(items.toArray(new Rider[0]));
         }
     }

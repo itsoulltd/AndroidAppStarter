@@ -13,7 +13,13 @@ public class CMDataSource<Key, Value> extends SimpleDataSource<Key, Value> {
         return (Value[]) items.toArray();
     }
 
-    public List<Value> readSyncAsList(int offset, int pageSize) {
+    public List<Value> fetch(int offset, int pageSize) {
+        int size = size();
+        if (pageSize > size || pageSize <= 0) pageSize = size;
+        return readSyncAsList(offset, pageSize);
+    }
+
+    private List<Value> readSyncAsList(int offset, int pageSize) {
         int size = size();
         int maxItemCount = Math.abs(offset) + Math.abs(pageSize);
         if (maxItemCount <= size) {

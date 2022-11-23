@@ -61,7 +61,7 @@ public class CacheManager<E extends Entity> {
 
     public List<E> fetch(int offset, int page) {
         if (page > getCache().size() || page <= 0) page = getCache().size();
-        return getCache().readSyncAsList(offset, page);
+        return getCache().fetch(offset, page);
     }
 
     public CacheManager clear(){
